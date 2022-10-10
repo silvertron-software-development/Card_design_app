@@ -5,22 +5,21 @@ import EditableTextInput from './EditableTextInput'
 export function EditableText({
   x,
   y,
+  id,
   isEditing,
   isTransforming,
   onToggleEdit,
   onToggleTransform,
-  onChange,
+  onTextChange,
   onResize,
+  onPositionChange,
   text,
   width,
   height,
 }) {
   function handleTextChange(e) {
-    onChange(e.currentTarget.value)
+    onTextChange(e.currentTarget.value)
   }
-
-  console.log(isEditing)
-  console.log(isTransforming)
 
   if (isEditing) {
     return (
@@ -39,12 +38,14 @@ export function EditableText({
     <ResizableText
       x={x}
       y={y}
+      id={id}
       isSelected={isTransforming}
       onClick={onToggleTransform}
       onDoubleClick={onToggleEdit}
       onResize={onResize}
       text={text}
       width={width}
+      onPositionChange={onPositionChange}
     />
   )
 }

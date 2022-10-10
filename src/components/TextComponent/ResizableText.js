@@ -4,12 +4,14 @@ import { Text, Transformer } from 'react-konva'
 export function ResizableText({
   x,
   y,
+  id,
   text,
   isSelected,
   width,
   onResize,
   onClick,
   onDoubleClick,
+  onPositionChange,
 }) {
   const textRef = useRef(null)
   const transformerRef = useRef(null)
@@ -65,6 +67,9 @@ export function ResizableText({
         onDblTap={onDoubleClick}
         width={width}
         draggable
+        onDragEnd={(e) => {
+          onPositionChange({ x: e.target.x(), y: e.target.y(), id })
+        }}
       />
       {transformer}
     </>

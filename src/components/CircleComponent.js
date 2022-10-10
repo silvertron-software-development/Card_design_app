@@ -44,6 +44,7 @@ const CircleComponent = ({
           onChange({
             x: e.target.x(),
             y: e.target.y(),
+            id,
           })
         }}
         onTransformEnd={(e) => {

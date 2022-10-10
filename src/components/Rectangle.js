@@ -44,6 +44,7 @@ const Rectangle = ({
         draggable
         onDragEnd={(e) => {
           onChange({
+            id,
             x: e.target.x(),
             y: e.target.y(),
           })

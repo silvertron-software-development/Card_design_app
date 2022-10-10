@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { EditableText } from './EditableText'
 
-export function TextComponent({ selected, setSelected }) {
+export function TextComponent({
+  selected,
+  setSelected,
+  onPositionChange,
+  id,
+  x,
+  y,
+}) {
   const [isEditing, setIsEditing] = useState(false)
   const [isTransforming, setIsTransforming] = useState(false)
   const [text, setText] = useState('Texto')
@@ -37,8 +44,9 @@ export function TextComponent({ selected, setSelected }) {
 
   return (
     <EditableText
-      x={250}
-      y={250}
+      x={x}
+      y={y}
+      id={id}
       text={text}
       width={width}
       height={height}
@@ -47,7 +55,8 @@ export function TextComponent({ selected, setSelected }) {
       isTransforming={isTransforming}
       onToggleEdit={toggleEdit}
       onToggleTransform={toggleTransforming}
-      onChange={onTextChange}
+      onTextChange={onTextChange}
+      onPositionChange={onPositionChange}
     />
   )
 }

@@ -18,7 +18,7 @@ const FirstToolbar = ({
         x={50}
         y={50}
         radius={25}
-        fill='green'
+        fill='black'
         onClick={() => {
           // push new circle to view
           // note that we must push circle first before returning draggable circle
@@ -27,7 +27,7 @@ const FirstToolbar = ({
             ...circles,
             {
               x: 250,
-              y: 250,
+              y: 140,
               fill: 'transparent',
               id: uuidv4(),
               stroke: 'black',
@@ -48,7 +48,7 @@ const FirstToolbar = ({
         y={100}
         width={50}
         height={50}
-        fill='blue'
+        fill='black'
         onClick={() => {
           // push new circle to view
           // note that we must push circle first before returning draggable circle
@@ -56,8 +56,8 @@ const FirstToolbar = ({
           setSquares([
             ...squares,
             {
-              x: 250,
-              y: 250,
+              x: 230,
+              y: 100,
               fill: 'transparent',
               id: uuidv4(),
               stroke: 'black',
@@ -79,7 +79,7 @@ const FirstToolbar = ({
         style={{ cursor: 'pointer' }}
         align='center'
         x={35}
-        y={180}
+        y={170}
         onClick={(e) => {
           // push new circle to view
           // note that we must push circle first before returning draggable circle
@@ -87,8 +87,8 @@ const FirstToolbar = ({
           setWords([
             ...words,
             {
-              x: 250,
-              y: 250,
+              x: 140,
+              y: 140,
               fill: 'transparent',
               id: uuidv4(),
               content: 'Texto',

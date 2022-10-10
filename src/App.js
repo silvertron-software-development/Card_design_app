@@ -15,6 +15,8 @@ export default function App() {
   const [selected, setSelected] = useState(false)
   const [selectedType, setSelectedType] = useState(null)
 
+  console.log(selected)
+
   const eraseSelection = () => {
     selectShape(null)
     setSelected(null)
@@ -24,8 +26,8 @@ export default function App() {
   return (
     <>
       <Stage
-        width={800}
-        height={500}
+        width={200}
+        height={300}
         ref={stageRef}
         onDblClick={eraseSelection}
       >
@@ -37,58 +39,89 @@ export default function App() {
           words={words}
           setWords={setWords}
         />
-        <Layer>
-          {circles.map((eachCircle, i) => (
-            <CircleComponent
-              x={eachCircle.x}
-              y={eachCircle.y}
-              radius={25}
-              isSelected={eachCircle.id === selectedShape}
-              fill={eachCircle.fill}
-              stroke={eachCircle.stroke}
-              key={eachCircle.id}
-              id={eachCircle.id}
-              onSelect={selectShape}
-              onChange={(newAttrs) => {
-                const circs = circles.slice()
-                circles[i] = newAttrs
-                setCircles(circs)
-              }}
-              onShapeSelect={setSelectedType}
-            />
-          ))}
-          {squares.map((square, i) => (
-            <Rectangle
-              x={square.x}
-              y={square.y}
-              isSelected={square.id === selectedShape}
-              width={50}
-              height={50}
-              fill={square.fill}
-              stroke={square.stroke}
-              key={square.id}
-              id={square.id}
-              onSelect={selectShape}
-              onShapeSelect={setSelectedType}
-              onChange={(newAttrs) => {
-                const rects = squares.slice()
-                squares[i] = newAttrs
-                setSquares(rects)
-              }}
-            />
-          ))}
-          {words.map((word, i) => (
-            <TextComponent
-              x={word.x}
-              y={word.y}
-              selected={selected}
-              key={word.id}
-              id={word.id}
-              setSelected={setSelected}
-            />
-          ))}
-        </Layer>
       </Stage>
+      <div
+        style={{
+          borderWidth: '1px',
+          borderColor: 'rgba(0, 0, 0, 0.1)',
+          borderStyle: 'solid',
+          boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+        }}
+      >
+        <Stage
+          width={500}
+          height={280}
+          ref={stageRef}
+          onDblClick={eraseSelection}
+        >
+          <Layer>
+            {circles.map((eachCircle, i) => (
+              <CircleComponent
+                x={eachCircle.x}
+                y={eachCircle.y}
+                radius={25}
+                isSelected={eachCircle.id === selectedShape}
+                fill={eachCircle.fill}
+                stroke={eachCircle.stroke}
+                key={eachCircle.id}
+                id={eachCircle.id}
+                onSelect={selectShape}
+                onChange={(newAttrs) => {
+                  const circs = squares.map((cir) => {
+                    return newAttrs.id === cir.id
+                      ? { ...cir, x: newAttrs.x, y: newAttrs.y }
+                      : cir
+                  })
+                  setCircles(circs)
+                }}
+                onShapeSelect={setSelectedType}
+              />
+            ))}
+            {squares.map((square) => (
+              <Rectangle
+                x={square.x}
+                y={square.y}
+                isSelected={square.id === selectedShape}
+                width={50}
+                height={50}
+                fill={square.fill}
+                stroke={square.stroke}
+                key={square.id}
+                id={square.id}
+                onSelect={selectShape}
+                onShapeSelect={setSelectedType}
+                onChange={(newAttrs) => {
+                  const rects = squares.map((sq) => {
+                    return newAttrs.id === sq.id
+                      ? { ...sq, x: newAttrs.x, y: newAttrs.y }
+                      : sq
+                  })
+                  setSquares(rects)
+                }}
+              />
+            ))}
+            {words.map((word) => (
+              <TextComponent
+                x={word.x}
+                y={word.y}
+                selected={selected}
+                key={word.id}
+                id={word.id}
+                setSelected={setSelected}
+                onPositionChange={(newAttrs) => {
+                  const newWords = words.map((wrd) => {
+                    return newAttrs.id === wrd.id
+                      ? { ...wrd, x: newAttrs.x, y: newAttrs.y }
+                      : wrd
+                  })
+                  setWords(newWords)
+                  console.log(words)
+                }}
+              />
+            ))}
+          </Layer>
+        </Stage>
+      </div>
       {selectedShape && (
         <RightToolbar
           shapes={selectedType === 'circle' ? circles : squares}

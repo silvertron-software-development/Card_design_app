@@ -55,9 +55,10 @@ export function ResizableText({
         x={x}
         y={y}
         ref={textRef}
+        padding={7}
+        fontFamily='Impact'
         text={text}
         fill='black'
-        fontFamily='sans-serif'
         fontSize={16}
         perfectDrawEnabled={false}
         onTransform={handleResize}

@@ -12,8 +12,8 @@ export function TextComponent({
   const [isEditing, setIsEditing] = useState(false)
   const [isTransforming, setIsTransforming] = useState(false)
   const [text, setText] = useState('Texto')
-  const [width, setWidth] = useState(200)
-  const [height, setHeight] = useState(200)
+  const [width, setWidth] = useState(100)
+  const [height, setHeight] = useState(50)
 
   useEffect(() => {
     if (!selected && isEditing) {

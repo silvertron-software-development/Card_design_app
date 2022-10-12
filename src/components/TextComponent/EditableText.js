@@ -21,6 +21,7 @@ export function EditableText({
     onTextChange(e.currentTarget.value)
   }
 
+  console.log(text)
   if (isEditing) {
     return (
       <EditableTextInput
@@ -31,6 +32,7 @@ export function EditableText({
         value={text}
         onChange={handleTextChange}
         isEditing={isEditing}
+        text={text}
       />
     )
   }

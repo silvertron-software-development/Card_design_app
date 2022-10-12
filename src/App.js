@@ -15,8 +15,6 @@ export default function App() {
   const [selected, setSelected] = useState(false)
   const [selectedType, setSelectedType] = useState(null)
 
-  console.log(selected)
-
   const eraseSelection = () => {
     selectShape(null)
     setSelected(null)
@@ -55,7 +53,7 @@ export default function App() {
           onDblClick={eraseSelection}
         >
           <Layer>
-            {circles.map((eachCircle, i) => (
+            {circles.map((eachCircle) => (
               <CircleComponent
                 x={eachCircle.x}
                 y={eachCircle.y}
@@ -67,7 +65,7 @@ export default function App() {
                 id={eachCircle.id}
                 onSelect={selectShape}
                 onChange={(newAttrs) => {
-                  const circs = squares.map((cir) => {
+                  const circs = circles.map((cir) => {
                     return newAttrs.id === cir.id
                       ? { ...cir, x: newAttrs.x, y: newAttrs.y }
                       : cir
@@ -115,7 +113,6 @@ export default function App() {
                       : wrd
                   })
                   setWords(newWords)
-                  console.log(words)
                 }}
               />
             ))}

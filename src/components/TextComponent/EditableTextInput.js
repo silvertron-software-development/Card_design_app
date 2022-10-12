@@ -13,9 +13,11 @@ const EditableTextInput = ({
   width,
   height,
 }) => {
+  let textValue = text === 'Texto' ? '' : text
+
   if (isEditing) {
     const style = getStyle(width, height)
-    console.log('editaaaaando')
+
     return (
       <Html
         groupProps={{ x, y }}
@@ -23,7 +25,7 @@ const EditableTextInput = ({
           style: { opacity: 1, color: 'black' },
         }}
       >
-        <textarea value={text} onChange={onChange} style={style} />
+        <textarea value={textValue} onChange={onChange} style={style} />
       </Html>
     )
   }

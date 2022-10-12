@@ -10,7 +10,6 @@ const FirstToolbar = ({
   words,
   setWords,
 }) => {
-  console.log(squares)
   return (
     <Layer>
       <Circle

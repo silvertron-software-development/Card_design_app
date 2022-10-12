@@ -11,7 +11,10 @@ export const getStyle = (width, height) => {
     resize: 'none',
     colour: 'black',
     fontSize: '16px',
-    fontFamily: 'sans-serif',
+    fontFamily: 'Impact',
+    borderColor: 'lightblue',
+    borderWidth: '1px',
+    borderStyle: 'solid',
   }
   if (isFirefox) {
     return baseStyle

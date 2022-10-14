@@ -1,9 +1,10 @@
 import { useReducer, createContext, useContext } from 'react'
 import Reducer from '../Reducers/StageReducer'
+import { v4 as uuidv4 } from 'uuid'
 
 const initialState = {
   shapes: [],
-  textElements: [],
+  textElements: [{ id: 'asdasasd', text: 'Testing' }],
   selectedShape: null,
   selectedType: null,
 }
@@ -19,8 +20,18 @@ export const StageProvider = ({ children }) => {
     dispatch({ type: 'ADD_SHAPE', payload: newShape })
   }
 
+  const addText = () => {
+    dispatch({ type: 'ADD_TEXT', payload: { id: uuidv4() } })
+  }
+
+  const handleTextChange = (newText, id) => {
+    dispatch({ type: 'CHANGE_TEXT', payload: { newText, id } })
+  }
+
   return (
-    <StageContext.Provider value={{ ...state, addShape }}>
+    <StageContext.Provider
+      value={{ ...state, addShape, handleTextChange, addText }}
+    >
       {children}
     </StageContext.Provider>
   )

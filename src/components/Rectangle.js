@@ -8,12 +8,14 @@ const Rectangle = ({
   height,
   fill,
   stroke,
+  strokeWidth,
   id,
   isSelected,
   onSelect,
   onChange,
   onShapeSelect,
 }) => {
+  console.log(strokeWidth)
   const shapeRef = useRef()
   const trRef = useRef()
 
@@ -41,6 +43,7 @@ const Rectangle = ({
         y={y}
         width={width}
         height={height}
+        strokeWidth={strokeWidth}
         draggable
         onDragEnd={(e) => {
           onChange({
@@ -64,6 +67,7 @@ const Rectangle = ({
             // set minimal value
             width: Math.max(5, node.width() * scaleX),
             height: Math.max(node.height() * scaleY),
+            strokeWidth: 1,
           })
         }}
       />

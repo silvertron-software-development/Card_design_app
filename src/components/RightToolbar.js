@@ -28,7 +28,6 @@ const RightToolbar = ({ shapes, selected, setShapes }) => {
       <div className='color-div'>
         <h3>Color de Fondo</h3>
         {colors.map((color) => {
-          console.log(color)
           return (
             <div
               key={color}
@@ -42,7 +41,6 @@ const RightToolbar = ({ shapes, selected, setShapes }) => {
       <div className='color-div'>
         <h3>Color de Borde</h3>
         {colors.map((color) => {
-          console.log(color)
           return (
             <div
               key={color}

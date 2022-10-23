@@ -8,12 +8,14 @@ export function TextComponent({
   id,
   x,
   y,
+  text,
+  align,
 }) {
   const [isEditing, setIsEditing] = useState(false)
   const [isTransforming, setIsTransforming] = useState(false)
-  const [text, setText] = useState('Texto')
-  const [width, setWidth] = useState(100)
-  const [height, setHeight] = useState(50)
+
+  const [width, setWidth] = useState(300)
+  const [height, setHeight] = useState(70)
 
   useEffect(() => {
     if (!selected && isEditing) {
@@ -38,10 +40,6 @@ export function TextComponent({
     setHeight(newHeight)
   }
 
-  function onTextChange(value) {
-    setText(value)
-  }
-
   return (
     <EditableText
       x={x}
@@ -55,8 +53,8 @@ export function TextComponent({
       isTransforming={isTransforming}
       onToggleEdit={toggleEdit}
       onToggleTransform={toggleTransforming}
-      onTextChange={onTextChange}
       onPositionChange={onPositionChange}
+      align={align}
     />
   )
 }

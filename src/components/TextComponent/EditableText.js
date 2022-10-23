@@ -1,41 +1,24 @@
 import React from 'react'
 import { ResizableText } from './ResizableText'
-import EditableTextInput from './EditableTextInput'
 
 export function EditableText({
   x,
   y,
   id,
-  isEditing,
   isTransforming,
   onToggleEdit,
   onToggleTransform,
-  onTextChange,
   onResize,
   onPositionChange,
   text,
   width,
-  height,
+  align,
 }) {
-  function handleTextChange(e) {
-    onTextChange(e.currentTarget.value)
+  console.log(text)
+  if (!text) {
+    text = 'Inserte Texto'
   }
 
-  console.log(text)
-  if (isEditing) {
-    return (
-      <EditableTextInput
-        x={x}
-        y={y}
-        width={width}
-        height={height}
-        value={text}
-        onChange={handleTextChange}
-        isEditing={isEditing}
-        text={text}
-      />
-    )
-  }
   return (
     <ResizableText
       x={x}
@@ -48,6 +31,7 @@ export function EditableText({
       text={text}
       width={width}
       onPositionChange={onPositionChange}
+      align={align}
     />
   )
 }

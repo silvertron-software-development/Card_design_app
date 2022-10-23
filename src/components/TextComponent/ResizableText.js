@@ -12,6 +12,7 @@ export function ResizableText({
   onClick,
   onDoubleClick,
   onPositionChange,
+  align,
 }) {
   const textRef = useRef(null)
   const transformerRef = useRef(null)
@@ -55,10 +56,11 @@ export function ResizableText({
         x={x}
         y={y}
         ref={textRef}
-        padding={7}
+        padding={10}
         fontFamily='Impact'
         text={text}
         fill='black'
+        align={align}
         fontSize={16}
         perfectDrawEnabled={false}
         onTransform={handleResize}

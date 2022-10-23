@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 const initialState = {
   shapes: [],
-  textElements: [{ id: 'asdasasd', text: 'Testing' }],
+  textElements: [{ id: 'asdasasd', text: '', align: 'center' }],
   selectedShape: null,
   selectedType: null,
 }
@@ -28,9 +28,13 @@ export const StageProvider = ({ children }) => {
     dispatch({ type: 'CHANGE_TEXT', payload: { newText, id } })
   }
 
+  const changePosition = (newPosition) => {
+    dispatch({ type: 'CHANGE_POSITION', payload: newPosition })
+  }
+
   return (
     <StageContext.Provider
-      value={{ ...state, addShape, handleTextChange, addText }}
+      value={{ ...state, addShape, handleTextChange, addText, changePosition }}
     >
       {children}
     </StageContext.Provider>

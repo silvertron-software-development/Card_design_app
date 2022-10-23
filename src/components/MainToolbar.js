@@ -1,6 +1,7 @@
 import React from 'react'
 import { useStage } from '../context/StageContext'
-import { v4 as uuidv4 } from 'uuid'
+
+import TextInput from './TextInput'
 
 const MainToolbar = () => {
   const { textElements, handleTextChange, addText } = useStage()
@@ -12,17 +13,9 @@ const MainToolbar = () => {
   return (
     <div>
       {textElements.map((el) => {
+        const { id, text } = el
         return (
-          <span key={uuidv4()}>
-            <input
-              key={el.id}
-              type='text'
-              value={el.text}
-              onChange={(e) => handleChange(e, el.id)}
-              placeholder='Inserte Texto Aquí'
-            />
-            <p key={uuidv4()}>{el.text ? el.text : 'Texto Nuevo'}</p>
-          </span>
+          <TextInput key={id} id={id} text={text} handleChange={handleChange} />
         )
       })}
       <button onClick={addText} type='button'>

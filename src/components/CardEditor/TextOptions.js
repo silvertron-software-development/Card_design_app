@@ -1,9 +1,9 @@
 import React from 'react'
-import { useStage } from '../context/StageContext'
-
+import { useStage } from '../../context/StageContext'
 import TextInput from './TextInput'
+import styled from 'styled-components'
 
-const MainToolbar = () => {
+const TextOptions = () => {
   const { textElements, handleTextChange, addText } = useStage()
 
   const handleChange = (e, id) => {
@@ -11,18 +11,29 @@ const MainToolbar = () => {
     handleTextChange(value, id)
   }
   return (
-    <div>
+    <Wrapper>
       {textElements.map((el) => {
         const { id, text } = el
         return (
           <TextInput key={id} id={id} text={text} handleChange={handleChange} />
         )
       })}
-      <button onClick={addText} type='button'>
+      <button className='btn add-btn' onClick={addText} type='button'>
         Agregar Nuevo Campo de Texto
       </button>
-    </div>
+    </Wrapper>
   )
 }
 
-export default MainToolbar
+export default TextOptions
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-items: space-evenly;
+  align-items: center;
+
+  .add-btn {
+    margin-top: 0.5rem;
+  }
+`

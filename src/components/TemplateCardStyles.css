@@ -1,0 +1,17 @@
+.list_element {
+    border-radius: 5px;
+    box-shadow: 0px 30px 40px -20px hsl(229, 6%, 66%);
+    padding: 30px;
+    margin: 0 auto 20px auto;
+    border-top: 3px solid hsl(229, 6%, 66%);
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-end;
+    width: 75%;
+}
+
+p {
+    display: inline-block;
+    margin-left: auto;
+    cursor: pointer;
+}

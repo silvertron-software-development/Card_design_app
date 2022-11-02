@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { TemplateCard } from '../components/TemplateCard';
-import '../components/TemplateCardStyles.css'
+import styled from 'styled-components';
 
 export const TemplateSelect = () => {
 
-    var templates = [{
+    let templates = [{
         "id": 1,
         "title": "Template1"
       }, {
@@ -19,10 +19,24 @@ export const TemplateSelect = () => {
 
     <ul>
         { templates.map( template =>
-            <TemplateCard key={template.id} className='list_element' template={template}/>
+            <TemplateCard key={template.id} title={template.title}/>
         )}
     </ul>
 
-        <p className='list_element'><Link to='editor'>BLANK CANVAS</Link></p>
+        <ListParagraph><Link to='editor'>BLANK CANVAS</Link></ListParagraph>
     </>
 }
+
+export default TemplateSelect
+
+const ListParagraph = styled.p`
+    border-radius: 5px;
+    box-shadow: 0px 30px 40px -20px hsl(229, 6%, 66%);
+    padding: 30px;
+    margin: 0 auto 20px auto;
+    border-top: 3px solid hsl(229, 6%, 66%);
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-end;
+    width: 75%;
+`

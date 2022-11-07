@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { EditableText } from './EditableText'
+import { ResizableText } from './ResizableText'
 
 export function TextComponent({
   selected,
@@ -10,25 +10,21 @@ export function TextComponent({
   y,
   text,
   align,
+  fontFamily,
+  fontSize,
+  fontStyle,
+  textDecoration,
+  fill,
 }) {
-  const [isEditing, setIsEditing] = useState(false)
   const [isTransforming, setIsTransforming] = useState(false)
-
   const [width, setWidth] = useState(300)
   const [height, setHeight] = useState(70)
 
   useEffect(() => {
-    if (!selected && isEditing) {
-      setIsEditing(false)
-    } else if (!selected && isTransforming) {
+    if (!selected && isTransforming) {
       setIsTransforming(false)
     }
-  }, [selected, isEditing, isTransforming])
-
-  function toggleEdit() {
-    setIsEditing(!isEditing)
-    setSelected(!isEditing)
-  }
+  }, [selected, isTransforming])
 
   function toggleTransforming() {
     setIsTransforming(!isTransforming)
@@ -40,21 +36,30 @@ export function TextComponent({
     setHeight(newHeight)
   }
 
+  if (!text) {
+    text = 'Inserte Texto'
+  }
+
+  fontSize = Number(fontSize)
+
   return (
-    <EditableText
+    <ResizableText
       x={x}
       y={y}
       id={id}
-      text={text}
-      width={width}
-      height={height}
+      isSelected={isTransforming}
+      onClick={toggleTransforming}
       onResize={onTextResize}
-      isEditing={isEditing}
-      isTransforming={isTransforming}
-      onToggleEdit={toggleEdit}
-      onToggleTransform={toggleTransforming}
+      text={text}
+      height={height}
+      width={width}
       onPositionChange={onPositionChange}
       align={align}
+      fill={fill}
+      fontFamily={fontFamily}
+      fontSize={fontSize}
+      fontStyle={fontStyle}
+      textDecoration={textDecoration}
     />
   )
 }

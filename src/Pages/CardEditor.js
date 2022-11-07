@@ -9,7 +9,7 @@ import { TextComponent } from '../components/TextComponent'
 import { Stage, Layer } from 'react-konva'
 
 export const CardEditor = () => {
-  const { textElements, changePosition } = useStage()
+  const { textElements, changePosition, selectedElement } = useStage()
   const [circles, setCircles] = useState([])
   const [squares, setSquares] = useState([])
   const [selectedShape, selectShape] = useState(null)
@@ -109,30 +109,45 @@ export const CardEditor = () => {
                 />
               )
             })}
-            {textElements.map((word) => (
-              <TextComponent
-                x={word.x}
-                y={word.y}
-                text={word.text}
-                selected={selected}
-                key={word.id}
-                id={word.id}
-                align={word.align}
-                setSelected={setSelected}
-                onPositionChange={(newAttrs) => {
-                  changePosition(newAttrs)
-                }}
-              />
-            ))}
+            {textElements.map((word) => {
+              const {
+                x,
+                y,
+                fill,
+                fontStyle,
+                text,
+                id,
+                align,
+                fontSize,
+                textDecoration,
+                fontFamily,
+              } = word
+              return (
+                <TextComponent
+                  x={x}
+                  y={y}
+                  fill={fill}
+                  text={text}
+                  selected={selected}
+                  key={id}
+                  id={id}
+                  align={align}
+                  fontSize={fontSize}
+                  textDecoration={textDecoration}
+                  fontFamily={fontFamily}
+                  fontStyle={fontStyle}
+                  setSelected={setSelected}
+                  onPositionChange={(newAttrs) => {
+                    changePosition(newAttrs)
+                  }}
+                />
+              )
+            })}
           </Layer>
         </Stage>
       </div>
-      {selectedShape && (
-        <RightToolbar
-          shapes={selectedType === 'circle' ? circles : squares}
-          setShapes={selectedType === 'circle' ? setCircles : setSquares}
-          selected={selectedShape}
-        />
+      {(selectedShape || selected) && (
+        <RightToolbar selectedElement={'asdasasd'} />
       )}
     </>
   )

@@ -88,7 +88,7 @@ const FirstToolbar = ({
             {
               x: 140,
               y: 140,
-              fill: 'transparent',
+              fill: '#2551B0',
               id: uuidv4(),
               content: 'Texto',
             },

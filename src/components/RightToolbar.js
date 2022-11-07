@@ -1,56 +1,104 @@
 import React from 'react'
 import styled from 'styled-components'
+import { FaUnderline, FaItalic, FaBold, FaTrashAlt } from 'react-icons/fa'
+import { FiType } from 'react-icons/fi'
+import { useStage } from '../context/StageContext'
 
-const RightToolbar = ({ shapes, selected, setShapes }) => {
-  const colors = ['#40BE05', '#0453D4', '#D46F04', '#7F04D4', '#FFFFFF']
+const RightToolbar = ({ selectedElement }) => {
+  const { handleTextPropertyChange, findTextElement } = useStage()
 
-  const handlePropertChange = (e, property, newProperty) => {
-    if (property === 'fill') {
-      const newArr = shapes.map((circle) => {
-        return circle.id === selected
-          ? { ...circle, fill: newProperty }
-          : circle
-      })
-      setShapes(newArr)
+  const selectedTextElement = findTextElement(selectedElement)
+
+  const { fontSize, fontStyle, fontFamily, fill, textDecoration } =
+    selectedTextElement
+
+  const handleStyleChange = (e, style) => {
+    let newStyle = fontStyle
+    console.log(newStyle)
+    if (newStyle.includes(style)) {
+      const replaced = newStyle.replace(style, '')
+      handleTextPropertyChange('fontStyle', replaced, selectedElement)
+      return
     }
-    if (property === 'stroke') {
-      const newArr = shapes.map((circle) => {
-        return circle.id === selected
-          ? { ...circle, stroke: newProperty }
-          : circle
-      })
-      setShapes(newArr)
+    newStyle = `${newStyle} ${style}`
+    handleTextPropertyChange('fontStyle', newStyle, selectedElement)
+    return
+  }
+
+  const handleChange = (e, propertyName) => {
+    let newProperty = e.target.value
+    if (propertyName === 'textDecoration' && textDecoration === '') {
+      newProperty = 'underline'
     }
+
+    if (propertyName === 'textDecoration' && textDecoration === 'underline') {
+      newProperty = 'underline'
+    }
+    if (propertyName === 'fontSize') {
+      newProperty = Number(newProperty)
+    }
+    handleTextPropertyChange(propertyName, newProperty, 'asdasd')
   }
 
   return (
     <Wrapper>
-      <div className='color-div'>
-        <h3>Color de Fondo</h3>
-        {colors.map((color) => {
-          return (
-            <div
-              key={color}
-              style={{ backgroundColor: color }}
-              className='color-selection'
-              onClick={(e) => handlePropertChange(e, 'fill', color)}
-            ></div>
-          )
-        })}
+      <div>
+        <label htmlFor='primary_color'>Color del texto</label>
+        <input
+          type='color'
+          value={fill}
+          onChange={(e) => handleChange(e, 'fill')}
+          className='primary_color'
+          id='primary_color'
+        />
       </div>
-      <div className='color-div'>
-        <h3>Color de Borde</h3>
-        {colors.map((color) => {
-          return (
-            <div
-              key={color}
-              style={{ backgroundColor: color }}
-              className='color-selection'
-              onClick={(e) => handlePropertChange(e, 'stroke', color)}
-            ></div>
-          )
-        })}
+      <div>
+        <label htmlFor='text-size' className='text-icon'>
+          Tamaño
+        </label>
+        <input
+          type='number'
+          id='text-size'
+          value={fontSize}
+          onChange={(e) => handleChange(e, 'fontSize')}
+        />
       </div>
+      <label htmlFor='letter-type' className='text-icon'>
+        <FiType />
+      </label>
+      <input
+        type='text'
+        placeholder='impact'
+        value={fontFamily}
+        onChange={(e) => handleChange(e, 'fontFamily')}
+        id='letter-type'
+        className='letter-type'
+      />
+
+      <span
+        title='Subrayado'
+        className='text-icon'
+        onClick={(e) => handleChange(e, 'textDecoration')}
+      >
+        <FaUnderline />
+      </span>
+      <span
+        title='Cursiva'
+        className='text-icon'
+        onClick={(e) => handleStyleChange(e, 'italic')}
+      >
+        <FaItalic />
+      </span>
+      <span
+        title='Negritas'
+        className='text-icon'
+        onClick={(e) => handleStyleChange(e, 'bold')}
+      >
+        <FaBold />
+      </span>
+      <span title='Eliminar' className='text-icon'>
+        <FaTrashAlt />
+      </span>
     </Wrapper>
   )
 }
@@ -59,19 +107,34 @@ export default RightToolbar
 
 const Wrapper = styled.section`
   height: 5rem;
-  .color-div {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+
+  .primary_color {
+    border-radius: 50%;
+    height: 1.5rem;
+    width: 1.5rem;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    cursor: pointer;
   }
 
-  .color-selection {
-    border: 1px solid black;
-    border-radius: 0.2rem;
+  .letter-type {
+    height: fit-content;
+  }
+
+  .primary_color::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+  .primary_color::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+  }
+
+  .text-icon {
     cursor: pointer;
-    padding: 0.3rem;
-    height: 1rem;
-    width: 1rem;
-    content: ' ';
   }
 `

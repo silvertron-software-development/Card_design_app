@@ -8,11 +8,16 @@ export function ResizableText({
   text,
   isSelected,
   width,
+  height,
   onResize,
   onClick,
-  onDoubleClick,
   onPositionChange,
   align,
+  fontFamily,
+  fontSize,
+  fontStyle,
+  textDecoration,
+  fill,
 }) {
   const textRef = useRef(null)
   const transformerRef = useRef(null)
@@ -31,44 +36,61 @@ export function ResizableText({
       const newHeight = textNode.height() * textNode.scaleY()
       textNode.setAttrs({
         width: newWidth,
+        height: newHeight,
         scaleX: 1,
       })
       onResize(newWidth, newHeight)
     }
   }
 
+  console.log(fontSize)
+
   const transformer = isSelected ? (
     <Transformer
       ref={transformerRef}
-      rotateEnabled={false}
+      rotateEnabled={true}
       flipEnabled={false}
-      enabledAnchors={['middle-left', 'middle-right']}
+      enabledAnchors={[
+        'middle-left',
+        'middle-right',
+        'top-left',
+        'top-right',
+        'bottom-right',
+        'bottom-left',
+      ]}
       boundBoxFunc={(oldBox, newBox) => {
         newBox.width = Math.max(30, newBox.width)
+        newBox.height = Math.max(30, newBox.height)
         return newBox
       }}
     />
-  ) : null
+  ) : (
+    false
+  )
+
+  fontSize = Number(fontSize)
 
   return (
     <>
       <Text
         x={x}
         y={y}
+        width={width}
+        height={height}
         ref={textRef}
         padding={10}
-        fontFamily='Impact'
+        fontFamily={fontFamily}
         text={text}
-        fill='black'
+        fill={fill}
+        fontSize={fontSize}
+        fontStyle={fontStyle}
         align={align}
-        fontSize={16}
+        verticalAlign='middle'
+        textDecoration={textDecoration}
         perfectDrawEnabled={false}
         onTransform={handleResize}
         onClick={onClick}
         onTap={onClick}
-        onDblClick={onDoubleClick}
-        onDblTap={onDoubleClick}
-        width={width}
         draggable
         onDragEnd={(e) => {
           onPositionChange({ x: e.target.x(), y: e.target.y(), id })

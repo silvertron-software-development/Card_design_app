@@ -26,7 +26,6 @@ export function EditableText({
       id={id}
       isSelected={isTransforming}
       onClick={onToggleTransform}
-      onDoubleClick={onToggleEdit}
       onResize={onResize}
       text={text}
       width={width}

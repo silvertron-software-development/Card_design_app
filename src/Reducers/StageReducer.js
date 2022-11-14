@@ -3,7 +3,6 @@ const StageReducer = (state, action) => {
     case 'ADD_SHAPE':
       return { ...state, shapes: [...state.shapes, action.payload] }
     case 'ADD_TEXT':
-      console.log(action.payload)
       return {
         ...state,
         textElements: [
@@ -13,8 +12,12 @@ const StageReducer = (state, action) => {
             id: action.payload.id,
             x: 140,
             y: 140,
-            fill: 'transparent',
             align: 'center',
+            fontStyle: '',
+            fontSize: 16,
+            textDecoration: '',
+            fontFamily: 'arial',
+            fill: '#2551B0',
           },
         ],
       }
@@ -37,6 +40,20 @@ const StageReducer = (state, action) => {
             return el.id !== action.payload.id
               ? el
               : { ...el, x: action.payload.x, y: action.payload.y }
+          }),
+        ],
+      }
+    case 'CHANGE_TEXT_PROPERTIES':
+      return {
+        ...state,
+        textElements: [
+          ...state.textElements.map((el) => {
+            return el.id !== action.payload.id
+              ? el
+              : {
+                  ...el,
+                  [action.payload.propertyName]: action.payload.newProperties,
+                }
           }),
         ],
       }

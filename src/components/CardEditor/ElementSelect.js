@@ -2,14 +2,14 @@ import React from 'react'
 import styled from 'styled-components'
 import { BiText, BiCircle, BiImageAlt } from 'react-icons/bi'
 
-const ElementSelect = () => {
+const ElementSelect = ({ setSelectedElement }) => {
   return (
     <Wrapper>
-      <span>
+      <span onClick={() => setSelectedElement('text')}>
         <BiText />
       </span>
       <span>
-        <BiCircle />
+        <BiCircle onClick={() => setSelectedElement('shape')} />
       </span>
       <span>
         <BiImageAlt />

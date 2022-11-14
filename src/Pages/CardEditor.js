@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
 import { useStage } from '../context/StageContext'
 import MainToolbar from '../components/CardEditor/MainToolbar'
-import ShapeSelect from '../components/Shapes/ShapeSelect'
 import TextToolbar from '../components/Toolbars/TextToolbar'
 import Rectangle from '../components/Shapes/Rectangle'
 import CircleComponent from '../components/Shapes/CircleComponent'
@@ -17,7 +16,6 @@ export const CardEditor = () => {
     selectedElement,
     selectedType,
     setSelectedElement,
-    addShape,
     changeShapePosition,
     changeShapeSize,
   } = useStage()
@@ -34,17 +32,16 @@ export const CardEditor = () => {
 
   return (
     <>
-      <MainToolbar />
       {selectedType === 'text' && <TextToolbar />}
       {selectedType === 'shape' && <ShapesToolbar />}
+      <MainToolbar />
+
       <Stage
         width={200}
         height={300}
         ref={stageRef}
         onDblClick={eraseSelection}
-      >
-        <ShapeSelect addShape={addShape} />
-      </Stage>
+      ></Stage>
       <div
         style={{
           borderWidth: '1px',

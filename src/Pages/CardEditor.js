@@ -1,43 +1,49 @@
-import React, { useState, useRef } from 'react'
+import React, { useRef } from 'react'
 import { useStage } from '../context/StageContext'
 import MainToolbar from '../components/CardEditor/MainToolbar'
-import FirstToolbar from '../components/FirstToolbar'
-import RightToolbar from '../components/RightToolbar'
-import Rectangle from '../components/Rectangle'
-import CircleComponent from '../components/CircleComponent'
+import ShapeSelect from '../components/Shapes/ShapeSelect'
+import TextToolbar from '../components/Toolbars/TextToolbar'
+import Rectangle from '../components/Shapes/Rectangle'
+import CircleComponent from '../components/Shapes/CircleComponent'
 import { TextComponent } from '../components/TextComponent'
 import { Stage, Layer } from 'react-konva'
+import ShapesToolbar from '../components/Toolbars/ShapesToolbar'
 
 export const CardEditor = () => {
-  const { textElements, changePosition, selectedElement } = useStage()
-  const [circles, setCircles] = useState([])
-  const [squares, setSquares] = useState([])
-  const [selectedShape, selectShape] = useState(null)
+  const {
+    textElements,
+    shapes,
+    changePosition,
+    selectedElement,
+    selectedType,
+    setSelectedElement,
+    addShape,
+    changeShapePosition,
+    changeShapeSize,
+  } = useStage()
+
   const stageRef = useRef(null)
-  const [selected, setSelected] = useState(false)
-  const [selectedType, setSelectedType] = useState(null)
 
   const eraseSelection = () => {
-    selectShape(null)
-    setSelected(null)
-    setSelectedType(null)
+    setSelectedElement(null, null)
+  }
+
+  const selectShape = (id) => {
+    setSelectedElement(id, 'shape')
   }
 
   return (
     <>
       <MainToolbar />
+      {selectedType === 'text' && <TextToolbar />}
+      {selectedType === 'shape' && <ShapesToolbar />}
       <Stage
         width={200}
         height={300}
         ref={stageRef}
         onDblClick={eraseSelection}
       >
-        <FirstToolbar
-          circles={circles}
-          setCircles={setCircles}
-          setSquares={setSquares}
-          squares={squares}
-        />
+        <ShapeSelect addShape={addShape} />
       </Stage>
       <div
         style={{
@@ -54,61 +60,47 @@ export const CardEditor = () => {
           onDblClick={eraseSelection}
         >
           <Layer>
-            {circles.map((eachCircle) => (
-              <CircleComponent
-                x={eachCircle.x}
-                y={eachCircle.y}
-                radius={25}
-                isSelected={eachCircle.id === selectedShape}
-                fill={eachCircle.fill}
-                stroke={eachCircle.stroke}
-                key={eachCircle.id}
-                id={eachCircle.id}
-                onSelect={selectShape}
-                onChange={(newAttrs) => {
-                  const circs = circles.map((cir) => {
-                    return newAttrs.id === cir.id
-                      ? { ...cir, x: newAttrs.x, y: newAttrs.y }
-                      : cir
-                  })
-                  setCircles(circs)
-                }}
-                onShapeSelect={setSelectedType}
-              />
-            ))}
-            {squares.map((square) => {
-              console.log(square)
+            {shapes.map((shape) => {
+              if (shape.component === 'Circle') {
+                return (
+                  <CircleComponent
+                    x={shape.x}
+                    y={shape.y}
+                    radius={shape.radius}
+                    isSelected={shape.id === selectedElement}
+                    fill={shape.fill}
+                    stroke={shape.stroke}
+                    key={shape.id}
+                    id={shape.id}
+                    onSelect={selectShape}
+                    onResize={changeShapeSize}
+                    onPositionChange={(newAttrs) => {
+                      changeShapePosition(newAttrs)
+                    }}
+                  />
+                )
+              }
               return (
                 <Rectangle
-                  x={square.x}
-                  y={square.y}
-                  isSelected={square.id === selectedShape}
-                  width={50}
-                  height={50}
-                  fill={square.fill}
-                  stroke={square.stroke}
-                  strokeWidth={square.strokeWidth}
-                  key={square.id}
-                  id={square.id}
+                  x={shape.x}
+                  y={shape.y}
+                  isSelected={shape.id === selectedElement}
+                  width={shape.width}
+                  height={shape.height}
+                  fill={shape.fill}
+                  stroke={shape.stroke}
+                  strokeWidth={shape.strokeWidth}
                   onSelect={selectShape}
-                  onShapeSelect={setSelectedType}
-                  onChange={(newAttrs) => {
-                    const rects = squares.map((sq) => {
-                      return newAttrs.id === sq.id
-                        ? {
-                            ...sq,
-                            x: newAttrs.x,
-                            y: newAttrs.y,
-                            strokeWidth: newAttrs.strokeWidth,
-                          }
-                        : sq
-                    })
-                    setSquares(rects)
-                    console.log(squares)
+                  onResize={changeShapeSize}
+                  key={shape.id}
+                  id={shape.id}
+                  onPositionChange={(newAttrs) => {
+                    changeShapePosition(newAttrs)
                   }}
                 />
               )
             })}
+
             {textElements.map((word) => {
               const {
                 x,
@@ -128,7 +120,8 @@ export const CardEditor = () => {
                   y={y}
                   fill={fill}
                   text={text}
-                  selected={selected}
+                  selected={selectedElement === id}
+                  setSelected={setSelectedElement}
                   key={id}
                   id={id}
                   align={align}
@@ -136,7 +129,6 @@ export const CardEditor = () => {
                   textDecoration={textDecoration}
                   fontFamily={fontFamily}
                   fontStyle={fontStyle}
-                  setSelected={setSelected}
                   onPositionChange={(newAttrs) => {
                     changePosition(newAttrs)
                   }}
@@ -146,9 +138,6 @@ export const CardEditor = () => {
           </Layer>
         </Stage>
       </div>
-      {(selectedShape || selected) && (
-        <RightToolbar selectedElement={'asdasasd'} />
-      )}
     </>
   )
 }

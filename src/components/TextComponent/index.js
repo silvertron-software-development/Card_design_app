@@ -28,7 +28,7 @@ export function TextComponent({
 
   function toggleTransforming() {
     setIsTransforming(!isTransforming)
-    setSelected(!isTransforming)
+    setSelected(id, 'text')
   }
 
   function onTextResize(newWidth, newHeight) {

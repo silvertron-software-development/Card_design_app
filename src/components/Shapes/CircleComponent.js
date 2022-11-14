@@ -10,8 +10,8 @@ const CircleComponent = ({
   id,
   isSelected,
   onSelect,
-  onChange,
-  onShapeSelect,
+  onResize,
+  onPositionChange,
 }) => {
   const shapeRef = useRef()
   const trRef = useRef()
@@ -24,15 +24,11 @@ const CircleComponent = ({
     }
   }, [isSelected])
 
-  const select = () => {
-    onSelect(id)
-    onShapeSelect('circle')
-  }
   return (
     <>
       <Circle
-        onClick={select}
-        onTap={select}
+        onClick={() => onSelect(id)}
+        onTap={() => onSelect(id)}
         ref={shapeRef}
         x={x}
         y={y}
@@ -41,11 +37,7 @@ const CircleComponent = ({
         stroke={stroke}
         draggable
         onDragEnd={(e) => {
-          onChange({
-            x: e.target.x(),
-            y: e.target.y(),
-            id,
-          })
+          onPositionChange({ x: e.target.x(), y: e.target.y(), id })
         }}
         onTransformEnd={(e) => {
           // transformer is changing scale of the node
@@ -57,7 +49,7 @@ const CircleComponent = ({
           const scaleY = node.scaleY()
 
           // we will reset it back
-          onChange({
+          onResize({
             x: node.x(),
             y: node.y(),
             // set minimal value

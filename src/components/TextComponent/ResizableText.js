@@ -43,8 +43,6 @@ export function ResizableText({
     }
   }
 
-  console.log(fontSize)
-
   const transformer = isSelected ? (
     <Transformer
       ref={transformerRef}

@@ -2,10 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 import { FaUnderline, FaItalic, FaBold, FaTrashAlt } from 'react-icons/fa'
 import { FiType } from 'react-icons/fi'
-import { useStage } from '../context/StageContext'
+import { useStage } from '../../context/StageContext'
 
-const RightToolbar = ({ selectedElement }) => {
-  const { handleTextPropertyChange, findTextElement } = useStage()
+const TextToolbar = () => {
+  const { handleTextPropertyChange, findTextElement, selectedElement } =
+    useStage()
 
   const selectedTextElement = findTextElement(selectedElement)
 
@@ -14,7 +15,7 @@ const RightToolbar = ({ selectedElement }) => {
 
   const handleStyleChange = (e, style) => {
     let newStyle = fontStyle
-    console.log(newStyle)
+
     if (newStyle.includes(style)) {
       const replaced = newStyle.replace(style, '')
       handleTextPropertyChange('fontStyle', replaced, selectedElement)
@@ -32,12 +33,12 @@ const RightToolbar = ({ selectedElement }) => {
     }
 
     if (propertyName === 'textDecoration' && textDecoration === 'underline') {
-      newProperty = 'underline'
+      newProperty = ''
     }
     if (propertyName === 'fontSize') {
       newProperty = Number(newProperty)
     }
-    handleTextPropertyChange(propertyName, newProperty, 'asdasd')
+    handleTextPropertyChange(propertyName, newProperty, selectedElement)
   }
 
   return (
@@ -103,7 +104,7 @@ const RightToolbar = ({ selectedElement }) => {
   )
 }
 
-export default RightToolbar
+export default TextToolbar
 
 const Wrapper = styled.section`
   height: 5rem;

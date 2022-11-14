@@ -21,8 +21,20 @@ export const StageProvider = ({ children }) => {
     return state.textElements.find((el) => el.id === id)
   }
 
+  const findShape = (id) => {
+    return state.shapes.find((el) => el.id === id)
+  }
+
+  const setSelectedElement = (id, type) => {
+    dispatch({ type: 'SET_SELECTED_ELEMENT', payload: { id, type } })
+  }
+
   const addShape = (newShape) => {
-    dispatch({ type: 'ADD_SHAPE', payload: newShape })
+    console.log(newShape)
+    dispatch({
+      type: 'ADD_SHAPE',
+      payload: { ...newShape, id: uuidv4() },
+    })
   }
 
   const addText = () => {
@@ -36,7 +48,7 @@ export const StageProvider = ({ children }) => {
   const handleTextPropertyChange = (propertyName, newProperties, id) => {
     dispatch({
       type: 'CHANGE_TEXT_PROPERTIES',
-      payload: { propertyName, newProperties, id: 'asdasasd' },
+      payload: { propertyName, newProperties, id: id },
     })
   }
 
@@ -44,16 +56,37 @@ export const StageProvider = ({ children }) => {
     dispatch({ type: 'CHANGE_POSITION', payload: newPosition })
   }
 
+  const changeShapePosition = (newPosition) => {
+    dispatch({ type: 'CHANGE_SHAPE_POSITION', payload: newPosition })
+  }
+
+  const handleShapePropertyChange = (propertyName, newProperties, id) => {
+    console.log(newProperties)
+    dispatch({
+      type: 'CHANGE_SHAPE_PROPERTIES',
+      payload: { propertyName, newProperties, id },
+    })
+  }
+
+  const changeShapeSize = (newSize) => {
+    dispatch({ type: 'CHANGE_SHAPE_SIZE', payload: newSize })
+  }
+
   return (
     <StageContext.Provider
       value={{
         ...state,
         findTextElement,
+        findShape,
+        setSelectedElement,
         addShape,
         handleTextChange,
         addText,
         changePosition,
         handleTextPropertyChange,
+        changeShapePosition,
+        changeShapeSize,
+        handleShapePropertyChange,
       }}
     >
       {children}

@@ -1,23 +1,25 @@
 import React, { useState } from 'react'
+import ShapeSelect from './ShapeSelect'
 import ElementSelect from './ElementSelect'
 import TextOptions from './TextOptions'
+import styled from 'styled-components'
 
 const MainToolbar = () => {
-  const [selectedElement, setSelectedElement] = useState('text')
+  const [activeElement, setActiveElement] = useState('text')
   return (
-    <>
-      <h3>Seleccione el element a colocar</h3>
+    <Wrapper>
       <ElementSelect
-        selectedElement={selectedElement}
-        setSelectedElement={setSelectedElement}
+        selectedElement={activeElement}
+        setSelectedElement={setActiveElement}
       />
-      {selectedElement === 'text' ? (
-        <TextOptions />
-      ) : (
-        <h3>New Element to add</h3>
-      )}
-    </>
+      {activeElement === 'text' ? <TextOptions /> : <ShapeSelect />}
+    </Wrapper>
   )
 }
 
 export default MainToolbar
+
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`

@@ -12,10 +12,9 @@ const Rectangle = ({
   id,
   isSelected,
   onSelect,
-  onChange,
-  onShapeSelect,
+  onResize,
+  onPositionChange,
 }) => {
-  console.log(strokeWidth)
   const shapeRef = useRef()
   const trRef = useRef()
 
@@ -27,15 +26,11 @@ const Rectangle = ({
     }
   }, [isSelected])
 
-  const select = () => {
-    onSelect(id)
-    onShapeSelect('rect')
-  }
   return (
     <>
       <Rect
-        onClick={select}
-        onTap={select}
+        onClick={() => onSelect(id)}
+        onTap={() => onSelect(id)}
         ref={shapeRef}
         stroke={stroke}
         fill={fill}
@@ -46,11 +41,7 @@ const Rectangle = ({
         strokeWidth={strokeWidth}
         draggable
         onDragEnd={(e) => {
-          onChange({
-            id,
-            x: e.target.x(),
-            y: e.target.y(),
-          })
+          onPositionChange({ x: e.target.x(), y: e.target.y(), id })
         }}
         onTransformEnd={(e) => {
           // transformer is changing scale of the node
@@ -60,14 +51,11 @@ const Rectangle = ({
           const node = shapeRef.current
           const scaleX = node.scaleX()
           const scaleY = node.scaleY()
-
-          onChange({
+          onResize({
             x: node.x(),
             y: node.y(),
-            // set minimal value
             width: Math.max(5, node.width() * scaleX),
             height: Math.max(node.height() * scaleY),
-            strokeWidth: 1,
           })
         }}
       />

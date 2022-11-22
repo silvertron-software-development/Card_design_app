@@ -134,7 +134,7 @@ export const CardEditor = () => {
                 />
               )
             })}
-            <ImageElement />
+            <ImageElement selected={false} />
           </Layer>
         </Stage>
       </div>

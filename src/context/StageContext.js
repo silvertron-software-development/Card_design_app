@@ -6,6 +6,7 @@ import { initialText } from '../helpers/textInitials'
 const initialState = {
   shapes: [],
   textElements: [initialText],
+  images: [],
   selectedElement: initialText,
   selectedType: null,
 }

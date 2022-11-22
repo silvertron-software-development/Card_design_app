@@ -3,8 +3,7 @@ import { Image, Transformer } from 'react-konva'
 import useImage from 'use-image'
 import myimage from '../../assets/images/testimage.png'
 
-const ImageElement = () => {
-  const [selected, setSelected] = useState(true)
+const ImageElement = ({ selected }) => {
   const shapeRef = useRef()
   const trRef = useRef()
   //'https://konvajs.org/assets/lion.png'

@@ -11,9 +11,8 @@ const ElementSelect = ({ setSelectedElement }) => {
       <span>
         <BiCircle onClick={() => setSelectedElement('shape')} />
       </span>
-      <span className='img-input'>
+      <span className='img-input' onClick={() => setSelectedElement('image')}>
         <BiImageAlt />
-        <input type='file' onChange={(e) => console.log(e.target.files)} />
       </span>
     </Wrapper>
   )

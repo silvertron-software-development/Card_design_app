@@ -35,7 +35,7 @@ const StageReducer = (state, action) => {
             fontStyle: '',
             fontSize: 16,
             textDecoration: '',
-            fontFamily: 'arial',
+            fontFamily: 'Abel',
             fill: '#2551B0',
           },
         ],

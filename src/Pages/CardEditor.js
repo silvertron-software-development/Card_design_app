@@ -13,12 +13,15 @@ export const CardEditor = () => {
   const {
     textElements,
     shapes,
+    images,
     changePosition,
     selectedElement,
     selectedType,
     setSelectedElement,
     changeShapePosition,
     changeShapeSize,
+    changeImagePosition,
+    changeImageSize,
   } = useStage()
 
   const stageRef = useRef(null)
@@ -29,6 +32,10 @@ export const CardEditor = () => {
 
   const selectShape = (id) => {
     setSelectedElement(id, 'shape')
+  }
+
+  const selectImage = (id) => {
+    setSelectedElement(id, 'image')
   }
 
   return (
@@ -134,7 +141,24 @@ export const CardEditor = () => {
                 />
               )
             })}
-            <ImageElement selected={false} />
+            {images.map((image) => {
+              const { x, y, width, height, id, src } = image
+              return (
+                <ImageElement
+                  key={id}
+                  src={src}
+                  id={id}
+                  x={x}
+                  y={y}
+                  width={width}
+                  height={height}
+                  onPositionChange={(newAttrs) => changeImagePosition(newAttrs)}
+                  selected={selectedElement === id}
+                  onResize={changeImageSize}
+                  onSelect={selectImage}
+                />
+              )
+            })}
           </Layer>
         </Stage>
       </div>

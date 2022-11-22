@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useStage } from '../../context/StageContext'
+import FontPicker from 'font-picker-react'
 import { FaUnderline, FaItalic, FaBold, FaTrashAlt } from 'react-icons/fa'
 import { FiType } from 'react-icons/fi'
-import { useStage } from '../../context/StageContext'
 
 const TextToolbar = () => {
   const {
@@ -71,15 +72,16 @@ const TextToolbar = () => {
       <label htmlFor='letter-type' className='text-icon'>
         <FiType />
       </label>
-      <input
-        type='text'
-        placeholder='impact'
-        value={fontFamily}
-        onChange={(e) => handleChange(e, 'fontFamily')}
+      <FontPicker
+        apiKey={process.env.REACT_APP_FONTS_KEY}
+        activeFontFamily={fontFamily}
+        limit={100}
+        onChange={(nextFont) => {
+          handleChange({ target: { value: nextFont.family } }, 'fontFamily')
+        }}
         id='letter-type'
         className='letter-type'
       />
-
       <span
         title='Subrayado'
         className='text-icon'

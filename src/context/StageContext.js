@@ -2,11 +2,12 @@ import { useReducer, createContext, useContext } from 'react'
 import Reducer from '../Reducers/StageReducer'
 import { v4 as uuidv4 } from 'uuid'
 import { initialText } from '../helpers/textInitials'
+import { initialImage } from '../helpers/imageInitials'
 
 const initialState = {
   shapes: [],
   textElements: [initialText],
-  images: [],
+  images: [initialImage],
   selectedElement: initialText,
   selectedType: null,
 }
@@ -31,7 +32,6 @@ export const StageProvider = ({ children }) => {
   }
 
   const addShape = (newShape) => {
-    console.log(newShape)
     dispatch({
       type: 'ADD_SHAPE',
       payload: { ...newShape, id: uuidv4() },
@@ -54,7 +54,6 @@ export const StageProvider = ({ children }) => {
   }
 
   const deleteTextElement = (id) => {
-    console.log(id)
     dispatch({ type: 'DELETE_TEXT', payload: id })
   }
 
@@ -82,6 +81,30 @@ export const StageProvider = ({ children }) => {
     dispatch({ type: 'DELETE_SHAPE', payload: id })
   }
 
+  const addImage = (values) => {
+    dispatch({ type: 'ADD_IMAGE', payload: values })
+  }
+
+  const changeImagePosition = (newPosition) => {
+    const { x, y } = newPosition
+    dispatch({ type: 'CHANGE_IMAGE_POSITION', payload: { x, y } })
+  }
+
+  const changeImageSize = (newSize) => {
+    dispatch({ type: 'CHANGE_IMAGE_SIZE', payload: newSize })
+  }
+
+  const handleImagePropertyChange = (propertyName, newProperties, id) => {
+    dispatch({
+      type: 'CHANGE_IMAGE_PROPERTIES',
+      payload: { propertyName, newProperties, id },
+    })
+  }
+
+  const deleteImage = (id) => {
+    dispatch({ type: 'DELETE_IMAGE', payload: id })
+  }
+
   return (
     <StageContext.Provider
       value={{
@@ -99,6 +122,11 @@ export const StageProvider = ({ children }) => {
         changeShapeSize,
         handleShapePropertyChange,
         deleteShape,
+        addImage,
+        changeImagePosition,
+        changeImageSize,
+        handleImagePropertyChange,
+        deleteImage,
       }}
     >
       {children}

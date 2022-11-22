@@ -7,17 +7,21 @@ import CircleComponent from '../components/Shapes/CircleComponent'
 import { TextComponent } from '../components/TextComponent'
 import { Stage, Layer } from 'react-konva'
 import ShapesToolbar from '../components/Toolbars/ShapesToolbar'
+import ImageElement from '../components/ImageComponents/ImageElement'
 
 export const CardEditor = () => {
   const {
     textElements,
     shapes,
+    images,
     changePosition,
     selectedElement,
     selectedType,
     setSelectedElement,
     changeShapePosition,
     changeShapeSize,
+    changeImagePosition,
+    changeImageSize,
   } = useStage()
 
   const stageRef = useRef(null)
@@ -28,6 +32,10 @@ export const CardEditor = () => {
 
   const selectShape = (id) => {
     setSelectedElement(id, 'shape')
+  }
+
+  const selectImage = (id) => {
+    setSelectedElement(id, 'image')
   }
 
   return (
@@ -65,6 +73,7 @@ export const CardEditor = () => {
                     y={shape.y}
                     radius={shape.radius}
                     isSelected={shape.id === selectedElement}
+                    strokeWidth={shape.strokeWidth}
                     fill={shape.fill}
                     stroke={shape.stroke}
                     key={shape.id}
@@ -129,6 +138,24 @@ export const CardEditor = () => {
                   onPositionChange={(newAttrs) => {
                     changePosition(newAttrs)
                   }}
+                />
+              )
+            })}
+            {images.map((image) => {
+              const { x, y, width, height, id, src } = image
+              return (
+                <ImageElement
+                  key={id}
+                  src={src}
+                  id={id}
+                  x={x}
+                  y={y}
+                  width={width}
+                  height={height}
+                  onPositionChange={(newAttrs) => changeImagePosition(newAttrs)}
+                  selected={selectedElement === id}
+                  onResize={changeImageSize}
+                  onSelect={selectImage}
                 />
               )
             })}

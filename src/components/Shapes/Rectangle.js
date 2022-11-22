@@ -39,6 +39,7 @@ const Rectangle = ({
         width={width}
         height={height}
         strokeWidth={strokeWidth}
+        strokeScaleEnabled={false}
         draggable
         onDragEnd={(e) => {
           onPositionChange({ x: e.target.x(), y: e.target.y(), id })

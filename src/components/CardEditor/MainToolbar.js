@@ -3,6 +3,7 @@ import ShapeSelect from './ShapeSelect'
 import ElementSelect from './ElementSelect'
 import TextOptions from './TextOptions'
 import styled from 'styled-components'
+import ImageImport from './ImageImport'
 
 const MainToolbar = () => {
   const [activeElement, setActiveElement] = useState('text')
@@ -12,7 +13,13 @@ const MainToolbar = () => {
         selectedElement={activeElement}
         setSelectedElement={setActiveElement}
       />
-      {activeElement === 'text' ? <TextOptions /> : <ShapeSelect />}
+      {activeElement === 'text' ? (
+        <TextOptions />
+      ) : activeElement === 'shape' ? (
+        <ShapeSelect />
+      ) : (
+        <ImageImport />
+      )}
     </Wrapper>
   )
 }

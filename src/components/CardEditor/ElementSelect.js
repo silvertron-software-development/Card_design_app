@@ -11,7 +11,7 @@ const ElementSelect = ({ setSelectedElement }) => {
       <span>
         <BiCircle onClick={() => setSelectedElement('shape')} />
       </span>
-      <span>
+      <span className='img-input' onClick={() => setSelectedElement('image')}>
         <BiImageAlt />
       </span>
     </Wrapper>
@@ -35,5 +35,10 @@ const Wrapper = styled.div`
     text-align: center;
     padding: 0.2rem;
     vertical-align: center;
+  }
+
+  .img-input {
+    width: 100%;
+    overflow: hidden;
   }
 `

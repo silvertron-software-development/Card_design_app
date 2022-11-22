@@ -7,6 +7,7 @@ import CircleComponent from '../components/Shapes/CircleComponent'
 import { TextComponent } from '../components/TextComponent'
 import { Stage, Layer } from 'react-konva'
 import ShapesToolbar from '../components/Toolbars/ShapesToolbar'
+import ImageElement from '../components/ImageComponents/ImageElement'
 
 export const CardEditor = () => {
   const {
@@ -65,6 +66,7 @@ export const CardEditor = () => {
                     y={shape.y}
                     radius={shape.radius}
                     isSelected={shape.id === selectedElement}
+                    strokeWidth={shape.strokeWidth}
                     fill={shape.fill}
                     stroke={shape.stroke}
                     key={shape.id}
@@ -132,6 +134,7 @@ export const CardEditor = () => {
                 />
               )
             })}
+            <ImageElement />
           </Layer>
         </Stage>
       </div>

@@ -5,8 +5,12 @@ import { FiType } from 'react-icons/fi'
 import { useStage } from '../../context/StageContext'
 
 const TextToolbar = () => {
-  const { handleTextPropertyChange, findTextElement, selectedElement } =
-    useStage()
+  const {
+    handleTextPropertyChange,
+    findTextElement,
+    selectedElement,
+    deleteTextElement,
+  } = useStage()
 
   const selectedTextElement = findTextElement(selectedElement)
 
@@ -97,7 +101,11 @@ const TextToolbar = () => {
       >
         <FaBold />
       </span>
-      <span title='Eliminar' className='text-icon'>
+      <span
+        title='Eliminar'
+        className='text-icon'
+        onClick={() => deleteTextElement(selectedElement)}
+      >
         <FaTrashAlt />
       </span>
     </Wrapper>

@@ -52,6 +52,11 @@ export const StageProvider = ({ children }) => {
     })
   }
 
+  const deleteTextElement = (id) => {
+    console.log(id)
+    dispatch({ type: 'DELETE_TEXT', payload: id })
+  }
+
   const changePosition = (newPosition) => {
     dispatch({ type: 'CHANGE_POSITION', payload: newPosition })
   }
@@ -72,6 +77,10 @@ export const StageProvider = ({ children }) => {
     dispatch({ type: 'CHANGE_SHAPE_SIZE', payload: newSize })
   }
 
+  const deleteShape = (id) => {
+    dispatch({ type: 'DELETE_SHAPE', payload: id })
+  }
+
   return (
     <StageContext.Provider
       value={{
@@ -80,6 +89,7 @@ export const StageProvider = ({ children }) => {
         findShape,
         setSelectedElement,
         addShape,
+        deleteTextElement,
         handleTextChange,
         addText,
         changePosition,
@@ -87,6 +97,7 @@ export const StageProvider = ({ children }) => {
         changeShapePosition,
         changeShapeSize,
         handleShapePropertyChange,
+        deleteShape,
       }}
     >
       {children}

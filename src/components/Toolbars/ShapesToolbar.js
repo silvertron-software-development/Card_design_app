@@ -3,9 +3,11 @@ import styled from 'styled-components'
 import { useStage } from '../../context/StageContext'
 import { IoMdColorFill } from 'react-icons/io'
 import { MdBorderColor } from 'react-icons/md'
+import { FaTrashAlt } from 'react-icons/fa'
 
 const ShapesToolbar = () => {
-  const { handleShapePropertyChange, findShape, selectedElement } = useStage()
+  const { handleShapePropertyChange, findShape, selectedElement, deleteShape } =
+    useStage()
 
   const selectedShape = findShape(selectedElement)
 
@@ -55,6 +57,13 @@ const ShapesToolbar = () => {
           className='primary_color'
         />
       </div>
+      <span
+        title='Eliminar'
+        className='text-icon'
+        onClick={() => deleteShape(selectedElement)}
+      >
+        <FaTrashAlt />
+      </span>
     </Wrapper>
   )
 }
@@ -67,6 +76,10 @@ const Wrapper = styled.div`
   justify-content: space-evenly;
   align-items: center;
   align-content: center;
+
+  span {
+    cursor: pointer;
+  }
 
   .primary_color {
     border-radius: 50%;

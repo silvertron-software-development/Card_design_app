@@ -17,7 +17,7 @@ const ShapeSelect = () => {
           radius={25}
           fill='#000000'
           onClick={() => {
-            addNewShape({ component: Circle, radius: 25 })
+            addNewShape({ component: Circle, radius: 25, strokeWidth: 2 })
           }}
         />
         <Rect

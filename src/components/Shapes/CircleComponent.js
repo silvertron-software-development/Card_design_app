@@ -7,6 +7,7 @@ const CircleComponent = ({
   radius,
   fill,
   stroke,
+  strokeWidth,
   id,
   isSelected,
   onSelect,
@@ -32,6 +33,7 @@ const CircleComponent = ({
         ref={shapeRef}
         x={x}
         y={y}
+        strokeWidth={strokeWidth}
         radius={radius}
         fill={fill}
         stroke={stroke}

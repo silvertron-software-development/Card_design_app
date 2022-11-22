@@ -76,6 +76,15 @@ const StageReducer = (state, action) => {
           }),
         ],
       }
+    case 'DELETE_TEXT':
+      return {
+        ...state,
+        selectedType: null,
+        selectedElement: null,
+        textElements: [
+          ...state.textElements.filter((el) => el.id !== action.payload),
+        ],
+      }
     case 'CHANGE_SHAPE_POSITION':
       return {
         ...state,
@@ -102,7 +111,6 @@ const StageReducer = (state, action) => {
         ],
       }
     case 'CHANGE_SHAPE_SIZE':
-      console.log(action.payload)
       return {
         ...state,
         shapes: [
@@ -113,13 +121,20 @@ const StageReducer = (state, action) => {
                   ...el,
                   height: action.payload.height,
                   width: action.payload.width,
-                  strokeWidth: el.strokeWidth,
                   x: action.payload.x,
                   y: action.payload.y,
                 }
           }),
         ],
       }
+    case 'DELETE_SHAPE':
+      return {
+        ...state,
+        selectedType: null,
+        selectedElement: null,
+        shapes: [...state.shapes.filter((el) => el.id !== action.payload)],
+      }
+
     default:
       return state
   }

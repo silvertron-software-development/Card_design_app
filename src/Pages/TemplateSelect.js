@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { TemplateCard } from '../components/TemplateCard';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import logo from '../assets/images/logo_printing.png';
 import 'bulma/css/bulma.css'
 
@@ -8,36 +8,36 @@ export const TemplateSelect = () => {
 
     let templates = [{
         "id": 1,
-        "title": "Template"
+        "title": "Template a"
       }, {
         "id": 2,
-        "title": "Template"
+        "title": "Template b"
       }, {
         "id": 3,
-        "title": "Template"
+        "title": "Template c"
       }];
 
     return <>
 
-        <section class="hero is-medium is-bold">
-            <div class="hero-head">
-                <nav class="navbar">
-                    <div class="container">
-                        <div class="navbar-brand">
-                            <a class="navbar-item" href="../">
+        <section className="hero is-medium is-bold">
+            <div className="hero-head">
+                <nav className="navbar">
+                    <div className="container">
+                        <div className="navbar-brand">
+                            <a className="navbar-item" href="../">
                                 <img src={logo} alt="logo"/>
                             </a>
-                            <span class="navbar-burger burger" data-target="navbarMenu">
+                            <span className="navbar-burger burger" data-target="navbarMenu">
                                 <span></span>
                                 <span></span>
                                 <span></span>
                             </span>
                         </div>
-                        <div id="navbarMenu" class="navbar-menu">
-                            <div class="navbar-end">
-                                <div class="is-right">
-                                    <span class="navbar-item">
-                                        <span class="button is-outlined">
+                        <div id="navbarMenu" className="navbar-menu">
+                            <div className="navbar-end">
+                                <div className="is-right">
+                                    <span className="navbar-item">
+                                        <span className="button is-outlined">
                                             {/* <span class="icon">
                                                 <i class="fa fa-github"></i>
                                             </span> */}
@@ -50,34 +50,34 @@ export const TemplateSelect = () => {
                     </div>
                 </nav>
             </div>
-            <div class="hero-body has-text-centered">
-                <div class="container has-text-centered">
-                    <h1 class="title">
+            <div className="hero-body has-text-centered">
+                <div className="container has-text-centered">
+                    <h1 className="title">
                       Tu propia tarjeta de presentación diseñada a tu gusto
                     </h1>
-                    <h3 class="subtitle">
+                    <h3 className="subtitle">
                       Dale el toque propio que buscabas a la presentación de tu negocio
                     </h3>
                 </div>
             </div>
         </section>
-        <div class="box cta" style={{backgroundColor: "#F49441"}}>
-            <p class="has-text-centered">
-                <span class="tag is-primary">Nuevo</span> O elige alguna de nuestras plantillas
+        <div className="box cta" style={{backgroundColor: "#F49441"}}>
+            <p className="has-text-centered">
+                <span className="tag is-primary">Nuevo</span> O elige alguna de nuestras plantillas
             </p>
         </div>
 
-        <section class="container">
-        <div class="columns features">
-            { templates.map( template =>
+        <section className="container">
+        <div className="columns features">
+            { templates.map( (template) =>
                 
-                <div class="column is-4">
-                    <div class="card is-shady">
-                        <div class="card-image has-text-centered">
+                <div className="column is-4" key={template.id}>
+                    <div className="card is-shady">
+                        <div className="card-image has-text-centered">
                             {/* <i class="fa fa-apple"></i> */}
                         </div>
-                        <div class="card-content">
-                            <div class="content">
+                        <div className="card-content">
+                            <div className="content">
                                 <h4> Leo integer malesuada nunc vel risus. </h4>
                                 <p>Imperdiet dui accumsan sit amet nulla facilisi morbi. Fusce ut placerat orci nulla pellentesque dignissim enim. Libero id faucibus nisl tincidunt eget nullam. Commodo viverra maecenas accumsan lacus vel facilisis.</p>
                                 <TemplateCard key={template.id} title={template.title}/>
@@ -88,20 +88,20 @@ export const TemplateSelect = () => {
                       
         )}
         </div> 
-            <div class="intro column is-8 is-offset-2">
-                <h2 class="title">¡Prueba nuestro editor o alguna de nuestras plantillas!</h2><br/>
-                <p class="subtitle">¡Herramienta perfecta para una tarjeta de presentación profesional sin ser diseñador!</p>
+            <div className="intro column is-8 is-offset-2">
+                <h2 className="title">¡Prueba nuestro editor o alguna de nuestras plantillas!</h2><br/>
+                <p className="subtitle">¡Herramienta perfecta para una tarjeta de presentación profesional sin ser diseñador!</p>
             </div>
-            <div class="columns features">
+            <div className="columns features">
             { templates.map( template =>
                 
-                <div class="column is-4">
-                    <div class="card is-shady">
-                        <div class="card-image has-text-centered">
-                            {/* <i class="fa fa-apple"></i> */}
+                <div className="column is-4" key={template.id}>
+                    <div className="card is-shady">
+                        <div className="card-image has-text-centered">
+                            {/* <i className="fa fa-apple"></i> */}
                         </div>
-                        <div class="card-content">
-                            <div class="content">
+                        <div className="card-content">
+                            <div className="content">
                                 <h4> Leo integer malesuada nunc vel risus. </h4>
                                 <p>Imperdiet dui accumsan sit amet nulla facilisi morbi. Fusce ut placerat orci nulla pellentesque dignissim enim. Libero id faucibus nisl tincidunt eget nullam. Commodo viverra maecenas accumsan lacus vel facilisis.</p>
                                 <TemplateCard key={template.id} title={template.title}/>
@@ -112,41 +112,41 @@ export const TemplateSelect = () => {
                       
         )}
         </div> 
-        <footer class="footer">
-            <div class="container">
-                <div class="columns">
-                    <div class="column is-3 is-offset-2">
+        <footer className="footer">
+            <div className="container">
+                <div className="columns">
+                    <div className="column is-3 is-offset-2">
                         <h2><strong>Category</strong></h2>
                         <ul>
-                            <li><a href="#">Lorem ipsum dolor sit amet</a></li>
+                            {/* <li><a href="#">Lorem ipsum dolor sit amet</a></li>
                             <li><a href="#">Vestibulum errato isse</a></li>
                             <li><a href="#">Lorem ipsum dolor sit amet</a></li>
                             <li><a href="#">Aisia caisia</a></li>
                             <li><a href="#">Murphy's law</a></li>
                             <li><a href="#">Flimsy Lavenrock</a></li>
-                            <li><a href="#">Maven Mousie Lavender</a></li>
+                            <li><a href="#">Maven Mousie Lavender</a></li> */}
                         </ul>
                     </div>
-                    <div class="column is-3">
+                    <div className="column is-3">
                         <h2><strong>Category</strong></h2>
                         <ul>
-                            <li><a href="#">Labore et dolore magna aliqua</a></li>
+                            {/* <li><a href="#">Labore et dolore magna aliqua</a></li>
                             <li><a href="#">Kanban airis sum eschelor</a></li>
                             <li><a href="#">Modular modern free</a></li>
                             <li><a href="#">The king of clubs</a></li>
                             <li><a href="#">The Discovery Dissipation</a></li>
                             <li><a href="#">Course Correction</a></li>
-                            <li><a href="#">Better Angels</a></li>
+                            <li><a href="#">Better Angels</a></li> */}
                         </ul>
                     </div>
-                    <div class="column is-4">
+                    <div className="column is-4">
                         <h2><strong>Category</strong></h2>
                         <ul>
-                            <li><a href="#">Objects in space</a></li>
+                            {/* <li><a href="#">Objects in space</a></li>
                             <li><a href="#">Playing cards with coyote</a></li>
                             <li><a href="#">Goodbye Yellow Brick Road</a></li>
                             <li><a href="#">The Garden of Forking Paths</a></li>
-                            <li><a href="#">Future Shock</a></li>
+                            <li><a href="#">Future Shock</a></li> */}
                         </ul>
                     </div>
                 </div>
@@ -161,14 +161,14 @@ export const TemplateSelect = () => {
 
 export default TemplateSelect
 
-const ListParagraph = styled.p`
-    border-radius: 5px;
-    box-shadow: 0px 30px 40px -20px hsl(229, 6%, 66%);
-    padding: 30px;
-    margin: 0 auto 20px auto;
-    border-top: 3px solid hsl(229, 6%, 66%);
-    display: flex;
-    flex-flow: row wrap;
-    align-items: flex-end;
-    width: 75%;
-`
+// const ListParagraph = styled.p`
+//     border-radius: 5px;
+//     box-shadow: 0px 30px 40px -20px hsl(229, 6%, 66%);
+//     padding: 30px;
+//     margin: 0 auto 20px auto;
+//     border-top: 3px solid hsl(229, 6%, 66%);
+//     display: flex;
+//     flex-flow: row wrap;
+//     align-items: flex-end;
+//     width: 75%;
+// `

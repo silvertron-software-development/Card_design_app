@@ -5,9 +5,9 @@ export const TemplateCard = ({ title }) => {
   return (
     <>
       <Wrapper>
-        <li>
+        {/* <li key={key}> */}
           <Link to='/editor'>{title}</Link>
-        </li>
+        {/* </li> */}
       </Wrapper>
     </>
   )

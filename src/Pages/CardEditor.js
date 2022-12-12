@@ -8,6 +8,8 @@ import { TextComponent } from '../components/TextComponent'
 import { Stage, Layer } from 'react-konva'
 import ShapesToolbar from '../components/Toolbars/ShapesToolbar'
 import ImageElement from '../components/ImageComponents/ImageElement'
+import styled from 'styled-components'
+import ImagesToolbar from '../components/Toolbars/ImagesToolbar'
 
 export const CardEditor = () => {
   const {
@@ -39,17 +41,11 @@ export const CardEditor = () => {
   }
 
   return (
-    <>
+    <Wrapper>
       {selectedType === 'text' && <TextToolbar />}
       {selectedType === 'shape' && <ShapesToolbar />}
+      {selectedType === 'image' && <ImagesToolbar />}
       <MainToolbar />
-
-      <Stage
-        width={200}
-        height={300}
-        ref={stageRef}
-        onDblClick={eraseSelection}
-      ></Stage>
       <div
         style={{
           borderWidth: '1px',
@@ -59,8 +55,8 @@ export const CardEditor = () => {
         }}
       >
         <Stage
-          width={500}
-          height={280}
+          width={700}
+          height={380}
           ref={stageRef}
           onDblClick={eraseSelection}
         >
@@ -72,6 +68,7 @@ export const CardEditor = () => {
                     x={shape.x}
                     y={shape.y}
                     radius={shape.radius}
+                    zIndex={shape.zIndex}
                     isSelected={shape.id === selectedElement}
                     strokeWidth={shape.strokeWidth}
                     fill={shape.fill}
@@ -91,6 +88,7 @@ export const CardEditor = () => {
                   x={shape.x}
                   y={shape.y}
                   isSelected={shape.id === selectedElement}
+                  zIndex={shape.zIndex}
                   width={shape.width}
                   height={shape.height}
                   fill={shape.fill}
@@ -119,6 +117,7 @@ export const CardEditor = () => {
                 fontSize,
                 textDecoration,
                 fontFamily,
+                zIndex,
               } = word
               return (
                 <TextComponent
@@ -135,6 +134,7 @@ export const CardEditor = () => {
                   textDecoration={textDecoration}
                   fontFamily={fontFamily}
                   fontStyle={fontStyle}
+                  zIndex={zIndex}
                   onPositionChange={(newAttrs) => {
                     changePosition(newAttrs)
                   }}
@@ -162,6 +162,11 @@ export const CardEditor = () => {
           </Layer>
         </Stage>
       </div>
-    </>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+`

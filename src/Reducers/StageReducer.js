@@ -135,6 +135,7 @@ const StageReducer = (state, action) => {
         shapes: [...state.shapes.filter((el) => el.id !== action.payload)],
       }
     case 'ADD_IMAGE':
+      console.log(action.payload)
       return {
         ...state,
         images: [
@@ -146,6 +147,8 @@ const StageReducer = (state, action) => {
             id: action.payload.id,
             x: 150,
             y: 150,
+            fill: action.payload.fill,
+            lineCap: action.payload.lineCap,
           },
         ],
       }
@@ -181,7 +184,7 @@ const StageReducer = (state, action) => {
       return {
         ...state,
         images: [
-          ...state.shapes.map((el) => {
+          ...state.images.map((el) => {
             return el.id !== action.payload.id
               ? el
               : {
@@ -196,7 +199,24 @@ const StageReducer = (state, action) => {
         ...state,
         selectedType: null,
         selectedElement: null,
-        images: [...state.iamges.filter((el) => el.id !== action.payload)],
+        images: [...state.images.filter((el) => el.id !== action.payload)],
+      }
+    case 'CHANGE_Z_INDEX':
+      console.log(action.payload)
+      console.log(state[action.payload.elementArray])
+      return {
+        ...state,
+        globalZindex: action.payload.value,
+        [action.payload.elementArray]: [
+          ...state[action.payload.elementArray].map((el) => {
+            return el.id !== action.payload.id
+              ? el
+              : {
+                  ...el,
+                  zIndex: action.payload.value,
+                }
+          }),
+        ],
       }
     default:
       return state

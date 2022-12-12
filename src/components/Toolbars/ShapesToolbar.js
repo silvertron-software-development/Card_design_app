@@ -4,10 +4,16 @@ import { useStage } from '../../context/StageContext'
 import { IoMdColorFill } from 'react-icons/io'
 import { MdBorderColor } from 'react-icons/md'
 import { FaTrashAlt } from 'react-icons/fa'
+import DispositionButtons from './DispositionButtons'
 
 const ShapesToolbar = () => {
-  const { handleShapePropertyChange, findShape, selectedElement, deleteShape } =
-    useStage()
+  const {
+    handleShapePropertyChange,
+    findShape,
+    selectedElement,
+    deleteShape,
+    handleZIndexChange,
+  } = useStage()
 
   const selectedShape = findShape(selectedElement)
 
@@ -64,6 +70,14 @@ const ShapesToolbar = () => {
       >
         <FaTrashAlt />
       </span>
+      {/* <DispositionButtons
+        bringUp={() => {
+          handleZIndexChange('shapes', selectedElement, true)
+        }}
+        bringDown={() => {
+          handleZIndexChange('shapes', selectedElement, false)
+        }}
+      /> */}
     </Wrapper>
   )
 }
@@ -71,6 +85,7 @@ const ShapesToolbar = () => {
 export default ShapesToolbar
 
 const Wrapper = styled.div`
+  grid-column: 1 / 4;
   height: 5rem;
   display: flex;
   justify-content: space-evenly;

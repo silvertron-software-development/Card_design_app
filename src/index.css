@@ -73,10 +73,6 @@ a:link {
   color: inherit;
 }
 
-div {
-  display: inline-block;
-}
-
 hr {
   border: none;
   border-top: 1px solid var(--clr-grey-8);

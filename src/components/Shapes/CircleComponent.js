@@ -8,6 +8,7 @@ const CircleComponent = ({
   fill,
   stroke,
   strokeWidth,
+  zIndex,
   id,
   isSelected,
   onSelect,

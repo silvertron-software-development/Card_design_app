@@ -4,6 +4,7 @@ import { useStage } from '../../context/StageContext'
 import FontPicker from 'font-picker-react'
 import { FaUnderline, FaItalic, FaBold, FaTrashAlt } from 'react-icons/fa'
 import { FiType } from 'react-icons/fi'
+import DispositionButtons from './DispositionButtons'
 
 const TextToolbar = () => {
   const {
@@ -11,6 +12,7 @@ const TextToolbar = () => {
     findTextElement,
     selectedElement,
     deleteTextElement,
+    handleZIndexChange,
   } = useStage()
 
   const selectedTextElement = findTextElement(selectedElement)
@@ -110,6 +112,14 @@ const TextToolbar = () => {
       >
         <FaTrashAlt />
       </span>
+      {/* <DispositionButtons
+        bringUp={() => {
+          handleZIndexChange('textElements', selectedElement, true)
+        }}
+        bringDown={() => {
+          handleZIndexChange('textElements', selectedElement, false)
+        }}
+      /> */}
     </Wrapper>
   )
 }
@@ -117,6 +127,7 @@ const TextToolbar = () => {
 export default TextToolbar
 
 const Wrapper = styled.section`
+  grid-column: 1 / 4;
   height: 5rem;
   display: flex;
   justify-content: space-evenly;

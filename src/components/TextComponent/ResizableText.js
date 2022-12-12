@@ -6,6 +6,7 @@ export function ResizableText({
   y,
   id,
   text,
+  zIndex,
   isSelected,
   width,
   height,

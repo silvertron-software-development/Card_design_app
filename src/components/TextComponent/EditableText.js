@@ -6,7 +6,6 @@ export function EditableText({
   y,
   id,
   isTransforming,
-  onToggleEdit,
   onToggleTransform,
   onResize,
   onPositionChange,

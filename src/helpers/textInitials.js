@@ -7,4 +7,5 @@ export const initialText = {
   textDecoration: '',
   fontFamily: 'Abel',
   fill: '#2551B0',
+  zIndex: 0,
 }

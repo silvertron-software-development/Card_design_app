@@ -15,6 +15,7 @@ export function TextComponent({
   fontStyle,
   textDecoration,
   fill,
+  zIndex,
 }) {
   const [isTransforming, setIsTransforming] = useState(false)
   const [width, setWidth] = useState(300)
@@ -47,6 +48,7 @@ export function TextComponent({
       x={x}
       y={y}
       id={id}
+      zIndex={zIndex}
       isSelected={isTransforming}
       onClick={toggleTransforming}
       onResize={onTextResize}

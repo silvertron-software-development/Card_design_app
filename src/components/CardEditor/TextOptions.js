@@ -27,7 +27,7 @@ const TextOptions = () => {
 
 export default TextOptions
 
-const Wrapper = styled.div`
+const Wrapper = styled.article`
   display: flex;
   flex-direction: column;
   justify-items: space-evenly;

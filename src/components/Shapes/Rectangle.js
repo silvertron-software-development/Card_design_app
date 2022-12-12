@@ -11,6 +11,7 @@ const Rectangle = ({
   strokeWidth,
   id,
   isSelected,
+  zIndex,
   onSelect,
   onResize,
   onPositionChange,

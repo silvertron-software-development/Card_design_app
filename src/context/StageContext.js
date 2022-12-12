@@ -2,14 +2,14 @@ import { useReducer, createContext, useContext } from 'react'
 import Reducer from '../Reducers/StageReducer'
 import { v4 as uuidv4 } from 'uuid'
 import { initialText } from '../helpers/textInitials'
-import { initialImage } from '../helpers/imageInitials'
 
 const initialState = {
   shapes: [],
   textElements: [initialText],
-  images: [initialImage],
-  selectedElement: initialText,
-  selectedType: null,
+  images: [],
+  selectedElement: initialText.id,
+  selectedType: 'text',
+  globalZindex: 0,
 }
 
 const StageContext = createContext()
@@ -25,6 +25,10 @@ export const StageProvider = ({ children }) => {
 
   const findShape = (id) => {
     return state.shapes.find((el) => el.id === id)
+  }
+
+  const findImage = (id) => {
+    return state.images.find((el) => el.id === id)
   }
 
   const setSelectedElement = (id, type) => {
@@ -82,7 +86,8 @@ export const StageProvider = ({ children }) => {
   }
 
   const addImage = (values) => {
-    dispatch({ type: 'ADD_IMAGE', payload: values })
+    console.log(values)
+    dispatch({ type: 'ADD_IMAGE', payload: { ...values, id: uuidv4() } })
   }
 
   const changeImagePosition = (newPosition) => {
@@ -95,6 +100,7 @@ export const StageProvider = ({ children }) => {
   }
 
   const handleImagePropertyChange = (propertyName, newProperties, id) => {
+    console.log(propertyName, newProperties, id)
     dispatch({
       type: 'CHANGE_IMAGE_PROPERTIES',
       payload: { propertyName, newProperties, id },
@@ -105,12 +111,22 @@ export const StageProvider = ({ children }) => {
     dispatch({ type: 'DELETE_IMAGE', payload: id })
   }
 
+  const handleZIndexChange = (elementArray, id, isIncreasing) => {
+    let value = 0
+    if (isIncreasing) {
+      value = state.globalZindex + 1
+    }
+    console.log(elementArray, id, isIncreasing)
+    dispatch({ type: 'CHANGE_Z_INDEX', payload: { elementArray, id, value } })
+  }
+
   return (
     <StageContext.Provider
       value={{
         ...state,
         findTextElement,
         findShape,
+        findImage,
         setSelectedElement,
         addShape,
         deleteTextElement,
@@ -127,6 +143,7 @@ export const StageProvider = ({ children }) => {
         changeImageSize,
         handleImagePropertyChange,
         deleteImage,
+        handleZIndexChange,
       }}
     >
       {children}

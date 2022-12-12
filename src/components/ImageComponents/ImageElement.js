@@ -48,6 +48,10 @@ const ImageElement = ({
           enabledAnchors={[
             'top-left',
             'top-right',
+            'top-center',
+            'middle-left',
+            'middle-right',
+            'bottom-center',
             'bottom-right',
             'bottom-left',
           ]}

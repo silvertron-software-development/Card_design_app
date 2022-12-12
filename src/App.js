@@ -5,8 +5,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 export default function App() {
   return (
     <>
-      {/* <CardEditor /> */}
-
       <Router>
         <Routes>
           <Route path='/editor' element={<CardEditor />} />

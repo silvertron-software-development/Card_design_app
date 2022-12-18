@@ -3,7 +3,7 @@ import React from 'react'
 import { useStage } from '../../context/StageContext'
 import { AiTwotonePlusSquare, AiTwotoneClockCircle } from 'react-icons/ai'
 import styled from 'styled-components'
-import { icons } from '../../utils/imageIcons'
+import { icons } from './imageIcons'
 
 const ShapeSelect = () => {
   const { addShape, addImage } = useStage()
@@ -46,6 +46,10 @@ const ShapeSelect = () => {
                 y: 150,
                 width: 100,
                 height: 100,
+                blue: 0,
+                red: 0,
+                green: 0,
+                alpha: 0,
                 icon: true,
               })
             }

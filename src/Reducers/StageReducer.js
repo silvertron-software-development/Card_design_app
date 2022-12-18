@@ -194,6 +194,24 @@ const StageReducer = (state, action) => {
           }),
         ],
       }
+    case 'CHANGE_IMAGE_FILTERS':
+      console.log('filtrando')
+      return {
+        ...state,
+        images: [
+          ...state.images.map((el) => {
+            return el.id !== action.payload.id
+              ? el
+              : {
+                  ...el,
+                  red: action.payload.rgbaArray[0],
+                  green: action.payload.rgbaArray[1],
+                  blue: action.payload.rgbaArray[2],
+                  alpha: action.payload.rgbaArray[3],
+                }
+          }),
+        ],
+      }
     case 'DELETE_IMAGE':
       return {
         ...state,

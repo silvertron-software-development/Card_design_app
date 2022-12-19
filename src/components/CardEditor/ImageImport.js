@@ -14,6 +14,7 @@ const ImageImport = ({ uploadedImages, setUploadedImages }) => {
       'https://api.cloudinary.com/v1_1/dzappyypg/upload',
       upload
     )
+
     console.log(data)
     setUploadedImages([
       ...uploadedImages,

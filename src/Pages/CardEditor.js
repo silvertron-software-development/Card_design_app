@@ -142,16 +142,33 @@ export const CardEditor = () => {
               )
             })}
             {images.map((image) => {
-              const { x, y, width, height, id, src } = image
+              const {
+                x,
+                y,
+                width,
+                height,
+                id,
+                src,
+                fill,
+                red,
+                green,
+                blue,
+                alpha,
+              } = image
               return (
                 <ImageElement
                   key={id}
                   src={src}
                   id={id}
+                  fill={fill}
                   x={x}
                   y={y}
                   width={width}
                   height={height}
+                  red={red}
+                  green={green}
+                  blue={blue}
+                  alpha={alpha}
                   onPositionChange={(newAttrs) => changeImagePosition(newAttrs)}
                   selected={selectedElement === id}
                   onResize={changeImageSize}

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { Image, Transformer } from 'react-konva'
 import useImage from 'use-image'
+import Konva from 'konva'
 
 const ImageElement = ({
   src,
@@ -9,6 +10,10 @@ const ImageElement = ({
   y,
   width,
   height,
+  red,
+  green,
+  blue,
+  alpha,
   onPositionChange,
   selected,
   onResize,
@@ -18,6 +23,7 @@ const ImageElement = ({
   const trRef = useRef()
   const [image] = useImage(src)
 
+  console.log(red, green, blue, alpha)
   useEffect(() => {
     if (selected) {
       // we need to attach transformer manually
@@ -25,6 +31,17 @@ const ImageElement = ({
       trRef.current.getLayer().batchDraw()
     }
   }, [selected])
+
+  useEffect(() => {
+    if (image) {
+      imageRef.current.cache()
+      imageRef.current.red(red)
+      imageRef.current.green(green)
+      imageRef.current.blue(blue)
+      imageRef.current.alpha(alpha)
+    }
+  }, [image, red, green, blue, alpha])
+
   return (
     <>
       <Image
@@ -33,6 +50,7 @@ const ImageElement = ({
         onTap={() => onSelect(id)}
         x={x}
         y={y}
+        filters={[Konva.Filters.RGBA]}
         image={image}
         ref={imageRef}
         width={width}

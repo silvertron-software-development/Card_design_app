@@ -3,16 +3,29 @@ import styled from 'styled-components'
 import { useStage } from '../../context/StageContext'
 import { MdRoundedCorner } from 'react-icons/md'
 import { FaTrashAlt } from 'react-icons/fa'
+import { IoMdColorFill } from 'react-icons/io'
+import { hexToRgbA } from '../../helpers/hexToRGBA'
 
 const ImagesToolbar = () => {
-  const { handleImagePropertyChange, findImage, selectedElement, deleteImage } =
-    useStage()
+  const {
+    handleImagePropertyChange,
+    findImage,
+    selectedElement,
+    handleImageFilterChange,
+    deleteImage,
+  } = useStage()
 
   const selectedImage = findImage(selectedElement)
 
-  console.log(selectedImage)
-
   const { lineCap } = selectedImage
+
+  const handleFilterChange = (e) => {
+    let { value } = e.target
+    value = hexToRgbA(e.target.value)
+    value = value.slice(5, -1)
+    const params = value.split(',').map((str) => parseInt(str))
+    handleImageFilterChange(params, selectedElement)
+  }
 
   const handleChange = (propertyName) => {
     let newProperty
@@ -44,6 +57,17 @@ const ImagesToolbar = () => {
       >
         <FaTrashAlt />
       </span>
+      <div>
+        <label htmlFor='fill'>
+          <IoMdColorFill />
+        </label>
+        <input
+          name='fill'
+          id='fill'
+          type='color'
+          onChange={handleFilterChange}
+        />
+      </div>
     </Wrapper>
   )
 }

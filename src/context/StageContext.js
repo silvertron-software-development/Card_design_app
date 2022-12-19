@@ -91,8 +91,9 @@ export const StageProvider = ({ children }) => {
   }
 
   const changeImagePosition = (newPosition) => {
-    const { x, y } = newPosition
-    dispatch({ type: 'CHANGE_IMAGE_POSITION', payload: { x, y } })
+    const { x, y, id } = newPosition
+    console.log(x, y)
+    dispatch({ type: 'CHANGE_IMAGE_POSITION', payload: { x, y, id } })
   }
 
   const changeImageSize = (newSize) => {
@@ -100,11 +101,14 @@ export const StageProvider = ({ children }) => {
   }
 
   const handleImagePropertyChange = (propertyName, newProperties, id) => {
-    console.log(propertyName, newProperties, id)
     dispatch({
       type: 'CHANGE_IMAGE_PROPERTIES',
       payload: { propertyName, newProperties, id },
     })
+  }
+
+  const handleImageFilterChange = (rgbaArray, id) => {
+    dispatch({ type: 'CHANGE_IMAGE_FILTERS', payload: { rgbaArray, id } })
   }
 
   const deleteImage = (id) => {
@@ -142,6 +146,7 @@ export const StageProvider = ({ children }) => {
         changeImagePosition,
         changeImageSize,
         handleImagePropertyChange,
+        handleImageFilterChange,
         deleteImage,
         handleZIndexChange,
       }}

@@ -1,6 +1,8 @@
 import axios from 'axios'
 import styled from 'styled-components'
 import { useStage } from '../../context/StageContext'
+import 'bulma/css/bulma.css'
+import { BiUpload } from 'react-icons/bi'
 
 const ImageImport = ({ uploadedImages, setUploadedImages }) => {
   const { addImage } = useStage()
@@ -23,14 +25,35 @@ const ImageImport = ({ uploadedImages, setUploadedImages }) => {
   }
   return (
     <Wrapper>
-      <input
+
+<div className="file">
+  <label className="file-label">
+  <input
         type='file'
         name='file'
         id='file'
-        className='inputfile'
+        className='file-input'
         onChange={uploadImage}
       />
-      <label htmlFor='file'>Selecciona un archivo</label>
+    <span class="file-cta">
+      <span class="file-icon">
+        <BiUpload />
+      </span>
+      <label htmlFor='file' className='file-label'>Selecciona un archivo</label>
+    </span>
+  </label>
+</div>
+
+
+
+      {/* <input
+        type='file'
+        name='file'
+        id='file'
+        className='file-input'
+        onChange={uploadImage}
+      /> */}
+      {/* <label htmlFor='file'>Selecciona un archivo</label> */}
       <hr />
       <h6>Subidos recientemente</h6>
       <div className='gallery'>

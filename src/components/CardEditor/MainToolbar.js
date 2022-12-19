@@ -29,7 +29,7 @@ const MainToolbar = () => {
         selectedElement={activeElement}
         setSelectedElement={setActiveElement}
       />
-      <span className='select-container card'>
+      <span className='select-container card is-shady'>
         {activeElement === 'text' ? (
           <TextOptions />
         ) : activeElement === 'shape' ? (
@@ -59,7 +59,7 @@ const Wrapper = styled.div`
     padding-right: 22%;
     margin: 15px 15px 15px 15px;
     padding: 10px;
-    // border: 3px solid #F49441;
+    border-bottom: 2px solid #F49441;
     // border-radius: 3px;
   }
 `

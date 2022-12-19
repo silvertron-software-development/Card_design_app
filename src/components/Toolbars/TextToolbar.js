@@ -5,6 +5,7 @@ import FontPicker from 'font-picker-react'
 import { FaUnderline, FaItalic, FaBold, FaTrashAlt } from 'react-icons/fa'
 import { FiType } from 'react-icons/fi'
 import DispositionButtons from './DispositionButtons'
+import 'bulma/css/bulma.css'
 
 const TextToolbar = () => {
   const {
@@ -49,7 +50,7 @@ const TextToolbar = () => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper className='card is-shady'>
       <div>
         <label htmlFor='primary_color' className='label'>Color del texto</label>
         <input
@@ -134,8 +135,8 @@ const Wrapper = styled.section`
   justify-content: space-evenly;
   align-items: center;
   align-content: center;
-  // background-color: #F6F7F7;
-  border-bottom: 3px solid #F49441;
+  background-color: #EAEAEA;
+  border-bottom: 2px solid #F49441;
   margin-bottom 50px;
 
   .primary_color {

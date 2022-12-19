@@ -2,6 +2,7 @@ import React from 'react'
 import { useStage } from '../../context/StageContext'
 import TextInput from './TextInput'
 import styled from 'styled-components'
+import 'bulma/css/bulma.css'
 
 const TextOptions = () => {
   const { textElements, handleTextChange, addText } = useStage()
@@ -18,7 +19,7 @@ const TextOptions = () => {
           <TextInput key={id} id={id} text={text} handleChange={handleChange} />
         )
       })}
-      <button className='btn add-btn' onClick={addText} type='button'>
+      <button className='button add-btn is-rounded' onClick={addText} type='button'>
         Agregar Nuevo Campo de Texto
       </button>
     </Wrapper>
@@ -35,5 +36,7 @@ const Wrapper = styled.article`
 
   .add-btn {
     margin-top: 0.5rem;
+    background-color: black;
+    color: white;
   }
 `

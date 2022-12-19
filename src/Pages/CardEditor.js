@@ -55,7 +55,7 @@ export const CardEditor = () => {
         }}
       >
         <Stage
-          width={700}
+          width={951}
           height={380}
           ref={stageRef}
           onDblClick={eraseSelection}

@@ -38,7 +38,7 @@ const ImagesToolbar = () => {
       handleImagePropertyChange(propertyName, newProperty, selectedElement)
   }
   return (
-    <Wrapper>
+    <Wrapper className='card is-shady'>
       {selectedImage && !selectedImage.icon && (
         <button
           type='button'
@@ -81,6 +81,9 @@ const Wrapper = styled.div`
   justify-content: space-evenly;
   align-items: center;
   align-content: center;
+  background-color: #EAEAEA;
+  border-bottom: 2px solid #F49441;
+  margin-bottom 50px;
 
   span,
   button {

@@ -10,6 +10,8 @@ import ShapesToolbar from '../components/Toolbars/ShapesToolbar'
 import ImageElement from '../components/ImageComponents/ImageElement'
 import styled from 'styled-components'
 import ImagesToolbar from '../components/Toolbars/ImagesToolbar'
+import { jsPDF } from "jspdf";
+import Konva from 'konva'
 
 export const CardEditor = () => {
   const {
@@ -38,6 +40,23 @@ export const CardEditor = () => {
 
   const selectImage = (id) => {
     setSelectedElement(id, 'image')
+  }
+
+  const exportToPDF = (stage) => {
+    var pdf = new jsPDF('l', 'px', [951, 380]);
+
+    let uri = stageRef.current.getStage();
+
+    pdf.addImage(
+      uri.toDataURL({ pixelRatio: 2 }),
+      // stage.toDataURL({ pixelRatio: 2 }),
+      0,
+      0,
+      951,
+      380
+    );
+    
+    pdf.save('canvas.pdf');
   }
 
   return (
@@ -179,6 +198,13 @@ export const CardEditor = () => {
           </Layer>
         </Stage>
       </div>
+      <span
+        title='pdf'
+        className=''
+        onClick={() => exportToPDF()}
+      >
+        PDF
+      </span>
     </Wrapper>
   )
 }

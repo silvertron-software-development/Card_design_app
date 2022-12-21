@@ -5,6 +5,7 @@ import FontPicker from 'font-picker-react'
 import { FaUnderline, FaItalic, FaBold, FaTrashAlt } from 'react-icons/fa'
 import { FiType } from 'react-icons/fi'
 import DispositionButtons from './DispositionButtons'
+import 'bulma/css/bulma.css'
 
 const TextToolbar = () => {
   const {
@@ -49,9 +50,9 @@ const TextToolbar = () => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper className='card is-shady'>
       <div>
-        <label htmlFor='primary_color'>Color del texto</label>
+        <label htmlFor='primary_color' className='label'>Color del texto</label>
         <input
           type='color'
           value={fill}
@@ -61,7 +62,7 @@ const TextToolbar = () => {
         />
       </div>
       <div>
-        <label htmlFor='text-size' className='text-icon'>
+        <label htmlFor='text-size' className='text-icon label'>
           Tamaño
         </label>
         <input
@@ -69,10 +70,11 @@ const TextToolbar = () => {
           id='text-size'
           value={fontSize}
           onChange={(e) => handleChange(e, 'fontSize')}
+          className='input is-small'
         />
       </div>
-      <label htmlFor='letter-type' className='text-icon'>
-        <FiType />
+      <label htmlFor='letter-type' className='text-icon label'>
+        Fuente
       </label>
       <FontPicker
         apiKey={process.env.REACT_APP_FONTS_KEY}
@@ -133,6 +135,9 @@ const Wrapper = styled.section`
   justify-content: space-evenly;
   align-items: center;
   align-content: center;
+  background-color: #EAEAEA;
+  border-bottom: 2px solid #F49441;
+  margin-bottom 50px;
 
   .primary_color {
     border-radius: 50%;

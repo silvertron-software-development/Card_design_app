@@ -4,6 +4,7 @@ import { useStage } from '../../context/StageContext'
 import { IoMdColorFill } from 'react-icons/io'
 import { MdBorderColor } from 'react-icons/md'
 import { FaTrashAlt } from 'react-icons/fa'
+import { BsBorderWidth } from 'react-icons/bs'
 import DispositionButtons from './DispositionButtons'
 
 const ShapesToolbar = () => {
@@ -28,20 +29,24 @@ const ShapesToolbar = () => {
     handleShapePropertyChange(propertyName, newProperty, selectedElement)
   }
   return (
-    <Wrapper>
+    <Wrapper className='card is-shady'>
       <div>
+        <label htmlFor='stroke_width' className='label'>Grosor del perímetro</label>
+        <BsBorderWidth />
         <input
           name='strokeWidth'
           value={strokeWidth}
           type='number'
           onChange={handleChange}
           className='primary_color'
+          id='stroke_width'
         />
       </div>
       <div>
-        <label htmlFor='fill'>
-          <IoMdColorFill />
+        <label htmlFor='fill' className='label'>
+          Color del área
         </label>
+        <IoMdColorFill />
         <input
           name='fill'
           id='fill'
@@ -51,9 +56,10 @@ const ShapesToolbar = () => {
         />
       </div>
       <div>
-        <label htmlFor='stroke'>
-          <MdBorderColor />
+        <label htmlFor='stroke' className='label'>
+          Color del perímetro
         </label>
+        <MdBorderColor />
         <input
           name='stroke'
           id='stroke'
@@ -91,6 +97,9 @@ const Wrapper = styled.div`
   justify-content: space-evenly;
   align-items: center;
   align-content: center;
+  background-color: #EAEAEA;
+  border-bottom: 2px solid #F49441;
+  margin-bottom 50px;
 
   span {
     cursor: pointer;

@@ -29,7 +29,7 @@ const MainToolbar = () => {
         selectedElement={activeElement}
         setSelectedElement={setActiveElement}
       />
-      <span className='select-container'>
+      <span className='select-container card is-shady'>
         {activeElement === 'text' ? (
           <TextOptions />
         ) : activeElement === 'shape' ? (
@@ -51,5 +51,15 @@ const Wrapper = styled.div`
   width: 35%;
   display: grid;
   grid-template-columns: 2fr 1fr;
-  margin-left: 0.5rem;
+  margin-left: 2rem;
+  // background-color: #F6F7F7;
+
+  .select-container {
+    background-color: #EAEAEA;
+    padding-right: 22%;
+    margin: 15px 15px 15px 15px;
+    padding: 10px;
+    border-bottom: 2px solid #F49441;
+    // border-radius: 3px;
+  }
 `

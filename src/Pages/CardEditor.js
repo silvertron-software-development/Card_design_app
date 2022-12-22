@@ -42,8 +42,9 @@ export const CardEditor = () => {
     setSelectedElement(id, 'image')
   }
 
-  const exportToPDF = (stage) => {
-    var pdf = new jsPDF('l', 'px', [951, 380]);
+  const exportToPDF = async (stage) => {
+    await setSelectedElement(null, null)
+    let pdf = new jsPDF('l', 'px', [3508, 2480]);
 
     let uri = stageRef.current.getStage();
 

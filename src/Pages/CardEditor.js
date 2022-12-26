@@ -43,18 +43,18 @@ export const CardEditor = () => {
   }
 
   const exportToPDF = async (stage) => {
-    await setSelectedElement(null, null)
-    let pdf = new jsPDF('l', 'px', [3508, 2480]);
+    let pdf = new jsPDF('p', 'px', [3508, 2480]);
 
-    let uri = stageRef.current.getStage();
+    let canvas = stageRef.current.getStage();
 
     pdf.addImage(
-      uri.toDataURL({ pixelRatio: 2 }),
+      canvas.toDataURL({ pixelRatio: 2 }),
+      'PNG',
       // stage.toDataURL({ pixelRatio: 2 }),
-      0,
-      0,
-      951,
-      380
+      699,
+      1438,
+      1083,
+      633
     );
     
     pdf.save('canvas.pdf');
@@ -75,8 +75,8 @@ export const CardEditor = () => {
         }}
       >
         <Stage
-          width={951}
-          height={380}
+          width={1083}
+          height={633}
           ref={stageRef}
           onDblClick={eraseSelection}
         >

@@ -112,8 +112,8 @@ export const TemplateSelect = () => {
                       
         )}
         </div> 
-        <footer class="footer has-text-centered">
-  <div class="content has-text-centered">
+        <footer className="footer has-text-centered">
+  <div className="content has-text-centered">
     <p>
       <strong>LITOGRAFIA GIL S.A. DE C.V</strong>. The source code is licensed
       <a href="http://opensource.org/licenses/mit-license.php"> MIT</a>. The website content

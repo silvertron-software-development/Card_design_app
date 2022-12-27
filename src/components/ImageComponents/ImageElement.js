@@ -21,7 +21,7 @@ const ImageElement = ({
 }) => {
   const imageRef = useRef()
   const trRef = useRef()
-  const [image] = useImage(src)
+  const [image] = useImage(src, 'anonymous')
 
   console.log(red, green, blue, alpha)
   useEffect(() => {

@@ -10,6 +10,8 @@ import ShapesToolbar from '../components/Toolbars/ShapesToolbar'
 import ImageElement from '../components/ImageComponents/ImageElement'
 import styled from 'styled-components'
 import ImagesToolbar from '../components/Toolbars/ImagesToolbar'
+import { jsPDF } from "jspdf";
+import Konva from 'konva'
 
 export const CardEditor = () => {
   const {
@@ -40,6 +42,24 @@ export const CardEditor = () => {
     setSelectedElement(id, 'image')
   }
 
+  const exportToPDF = async (stage) => {
+    let pdf = new jsPDF('p', 'px', [3508, 2480]);
+
+    let canvas = stageRef.current.getStage();
+
+    pdf.addImage(
+      canvas.toDataURL({ pixelRatio: 2 }),
+      'PNG',
+      // stage.toDataURL({ pixelRatio: 2 }),
+      699,
+      1438,
+      1083,
+      633
+    );
+    
+    pdf.save('canvas.pdf');
+  }
+
   return (
     <Wrapper>
       {selectedType === 'text' && <TextToolbar />}
@@ -55,8 +75,8 @@ export const CardEditor = () => {
         }}
       >
         <Stage
-          width={951}
-          height={380}
+          width={1083}
+          height={633}
           ref={stageRef}
           onDblClick={eraseSelection}
         >
@@ -179,6 +199,13 @@ export const CardEditor = () => {
           </Layer>
         </Stage>
       </div>
+      <span
+        title='pdf'
+        className=''
+        onClick={() => exportToPDF()}
+      >
+        PDF
+      </span>
     </Wrapper>
   )
 }

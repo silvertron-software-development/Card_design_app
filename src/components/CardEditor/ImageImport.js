@@ -35,8 +35,8 @@ const ImageImport = ({ uploadedImages, setUploadedImages }) => {
         className='file-input'
         onChange={uploadImage}
       />
-    <span class="file-cta">
-      <span class="file-icon">
+    <span className="file-cta">
+      <span className="file-icon">
         <BiUpload />
       </span>
       <label htmlFor='file' className='file-label'>Selecciona un archivo</label>

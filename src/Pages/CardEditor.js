@@ -11,7 +11,6 @@ import ImageElement from '../components/ImageComponents/ImageElement'
 import styled from 'styled-components'
 import ImagesToolbar from '../components/Toolbars/ImagesToolbar'
 import { jsPDF } from "jspdf";
-import Konva from 'konva'
 
 export const CardEditor = () => {
   const {

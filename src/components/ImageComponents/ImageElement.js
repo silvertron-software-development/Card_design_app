@@ -14,6 +14,7 @@ const ImageElement = ({
   green,
   blue,
   alpha,
+  icon,
   onPositionChange,
   selected,
   onResize,
@@ -33,14 +34,15 @@ const ImageElement = ({
   }, [selected])
 
   useEffect(() => {
-    if (image) {
+    if (image && icon) {
+      // ver si se puede resetear el filtro 0,0,0 para asi poder aplicar filtros de colores
       imageRef.current.cache()
       imageRef.current.red(red)
       imageRef.current.green(green)
       imageRef.current.blue(blue)
       imageRef.current.alpha(alpha)
     }
-  }, [image, red, green, blue, alpha])
+  }, [image, red, green, blue, alpha, icon])
 
   return (
     <>

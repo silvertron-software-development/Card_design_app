@@ -5,7 +5,7 @@ import { IoMdColorFill } from 'react-icons/io'
 import { MdBorderColor } from 'react-icons/md'
 import { FaTrashAlt } from 'react-icons/fa'
 import { BsBorderWidth } from 'react-icons/bs'
-import DispositionButtons from './DispositionButtons'
+//import DispositionButtons from './DispositionButtons'
 
 const ShapesToolbar = () => {
   const {
@@ -13,7 +13,7 @@ const ShapesToolbar = () => {
     findShape,
     selectedElement,
     deleteShape,
-    handleZIndexChange,
+    //handleZIndexChange,
   } = useStage()
 
   const selectedShape = findShape(selectedElement)

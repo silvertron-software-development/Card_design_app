@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import { useStage } from '../../context/StageContext'
 import FontPicker from 'font-picker-react'
 import { FaUnderline, FaItalic, FaBold, FaTrashAlt } from 'react-icons/fa'
-import { FiType } from 'react-icons/fi'
-import DispositionButtons from './DispositionButtons'
+//import { FiType } from 'react-icons/fi'
+//import DispositionButtons from './DispositionButtons'
 import 'bulma/css/bulma.css'
 
 const TextToolbar = () => {
@@ -13,7 +13,7 @@ const TextToolbar = () => {
     findTextElement,
     selectedElement,
     deleteTextElement,
-    handleZIndexChange,
+    //handleZIndexChange,
   } = useStage()
 
   const selectedTextElement = findTextElement(selectedElement)

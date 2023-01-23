@@ -2,7 +2,10 @@ require('dotenv').config()
 
 exports.handler = async function (event, context) {
 	const stripe = require('stripe')(process.env.REACT_APP_STRIPE_TEST_KEY)
+
 	const bodyJson = JSON.parse(event.body)
+	console.log('Hola funcion nueva')
+	console.log(bodyJson)
 	const { url, cartInfo: priceId } = bodyJson
 
 	const session = await stripe.checkout.sessions.create({

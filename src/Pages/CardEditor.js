@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useStage } from '../context/StageContext'
 import MainToolbar from '../components/CardEditor/MainToolbar'
 import TextToolbar from '../components/Toolbars/TextToolbar'
@@ -27,6 +27,8 @@ export const CardEditor = () => {
 		changeImagePosition,
 		changeImageSize
 	} = useStage()
+
+	const [redirectUrl, setredirectUrl] = useState(null)
 
 	const stageRef = useRef(null)
 
@@ -64,7 +66,8 @@ export const CardEditor = () => {
 	const postPdfAndCheckout = async () => {
 		const pdf = await exportToPDF()
 		console.log(pdf)
-		postToCheckout('price_1MLxogFPiM3jeCEiCsDS0lDy', pdf)
+		const url = await postToCheckout('price_1MLxogFPiM3jeCEiCsDS0lDy', pdf)
+		setredirectUrl(url)
 	}
 
 	return (
@@ -216,6 +219,12 @@ export const CardEditor = () => {
 			<button type="button" onClick={postPdfAndCheckout}>
 				Checkout
 			</button>
+			{redirectUrl && (
+				<div>
+					Si no fuiste redirigido automaticamente da click{' '}
+					<a href={redirectUrl}>AQUI</a>
+				</div>
+			)}
 		</>
 	)
 }

@@ -24,6 +24,7 @@ export const postToCheckout = async (cartInfo, pdf) => {
 			}
 		)
 		window.open(data2, '_blank')
+		return data2
 	} catch (error) {
 		console.log(error)
 	}

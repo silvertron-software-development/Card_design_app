@@ -8,7 +8,7 @@ exports.handler = async function (event, context) {
 	})
 
 	console.log('Hola funcion nueva')
-	const { url, cartInfo: priceId } = bodyJson
+	const { url } = bodyJson
 
 	const preference = {
 		binary_mode: true,

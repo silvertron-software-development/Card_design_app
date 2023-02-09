@@ -65,9 +65,9 @@ export const CardEditor = () => {
 
 	const postPdfAndCheckout = async () => {
 		const pdf = await exportToPDF()
-		console.log(pdf)
 		const url = await postToCheckout('price_1MLxogFPiM3jeCEiCsDS0lDy', pdf)
 		setredirectUrl(url)
+		console.log(url)
 	}
 
 	return (

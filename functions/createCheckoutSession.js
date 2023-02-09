@@ -1,30 +1,38 @@
 require('dotenv').config()
+const mercadopago = require('mercadopago')
 
 exports.handler = async function (event, context) {
-	const stripe = require('stripe')(process.env.REACT_APP_STRIPE_TEST_KEY)
-
 	const bodyJson = JSON.parse(event.body)
+	mercadopago.configure({
+		access_token: process.env.REACT_APP_MERCADO_PAGO_ACCESS_TOKEN
+	})
+
 	console.log('Hola funcion nueva')
-	console.log(bodyJson)
 	const { url, cartInfo: priceId } = bodyJson
 
-	const session = await stripe.checkout.sessions.create({
-		mode: 'payment',
-		line_items: [
+	const preference = {
+		binary_mode: true,
+		items: [
 			{
-				price: priceId,
-				quantity: 1
+				title: 'Tarjetas de negocio',
+				description: url,
+				quantity: 1000,
+				currency_id: 'MXN',
+				unit_price: 1
 			}
 		],
-		metadata: {
-			url: url
+		back_urls: {
+			success: 'https://www.waltergplata.com',
+			failure: 'https://www.waltergplata.com',
+			pending: 'https://www.waltergplata.com'
 		},
-		success_url: 'https://waltergplata.com',
-		cancel_url: 'https://waltergplata.com'
-	})
-	console.log(session)
+		auto_return: 'approved'
+	}
+
+	const response = await mercadopago.preferences.create(preference)
+
 	return {
 		statusCode: 200,
-		body: JSON.stringify(session.url)
+		body: JSON.stringify(response)
 	}
 }

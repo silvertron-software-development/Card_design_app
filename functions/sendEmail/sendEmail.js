@@ -1,4 +1,4 @@
-const { POSTMARK_API_KEY, MAILGUN_DOMAIN, MAILGUN_URL, FROM_EMAIL_ADDRESS, CONTACT_TO_EMAIL_ADDRESS } = process.env
+const { POSTMARK_API_KEY } = process.env
 const serverToken = POSTMARK_API_KEY //API Key
 let postmark = require("postmark")
 let client = new postmark.ServerClient(serverToken);

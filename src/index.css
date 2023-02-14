@@ -1,3 +1,6 @@
+@import url('bulma/css/bulma.css');
+@import url('material-design-icons/iconfont/material-icons.css');
+
 :root {
   /* dark shades of primary color*/
   --clr-primary-1: hsl(22, 28%, 21%);

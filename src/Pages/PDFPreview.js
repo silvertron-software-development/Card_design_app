@@ -17,22 +17,19 @@ export const PDFPreview = () => {
 	}
 
 	return (
-		<>
 			<Wrapper>
 				
 				<PDFViewer />
-			
-			</Wrapper>
-			<button type="button" onClick={goToCheckout}>
-				Checkout
-			</button>
-			{redirectUrl && (
+                <button type="button" onClick={goToCheckout}>
+				    Checkout
+			    </button>
+			    {redirectUrl && (
 				<div>
 					Si no fuiste redirigido automaticamente da click{' '}
 					<a href={redirectUrl}>AQUI</a>
 				</div>
 			)}
-		</>
+			</Wrapper>
 	)
 }
 

@@ -12,7 +12,6 @@ import styled from 'styled-components'
 import ImagesToolbar from '../components/Toolbars/ImagesToolbar'
 import { useNavigate } from 'react-router-dom'
 import { jsPDF } from 'jspdf'
-// import axios from 'axios'
 import { postToCloudinary } from '../services/checkoutServices/postToCheckout'
 
 export const CardEditor = () => {
@@ -33,8 +32,6 @@ export const CardEditor = () => {
 	} = useStage()
 
 	let navigate = useNavigate()
-
-	// const [redirectUrl, setredirectUrl] = useState(null)
 
 	const stageRef = useRef(null)
 
@@ -79,9 +76,7 @@ export const CardEditor = () => {
 			633
 		)
 
-		pdf = addWaterMark(pdf);
-		// pdf.save('canvas.pdf')
-		//return pdf.output('blob')
+		pdf = addWaterMark(pdf)
 
 		const url = await postToCloudinary(pdf.output('blob'))
 
@@ -90,13 +85,6 @@ export const CardEditor = () => {
 
 		navigate('checkout')
 	}
-
-	// const postPdfAndCheckout = async () => {
-	// 	const pdf = await exportToPDF()
-	// 	const url = await postToCheckout('price_1MLxogFPiM3jeCEiCsDS0lDy', pdf)
-	// 	setredirectUrl(url)
-	// 	console.log(url)
-	// }
 
 	return (
 		<>
@@ -245,15 +233,6 @@ export const CardEditor = () => {
 				>Previewer
 				</button>
 			</Wrapper>
-			{/* <button type="button" onClick={postPdfAndCheckout}>
-				Checkout
-			</button>
-			{redirectUrl && (
-				<div>
-					Si no fuiste redirigido automaticamente da click{' '}
-					<a href={redirectUrl}>AQUI</a>
-				</div>
-			)}*/}
 		</>
 	)
 }

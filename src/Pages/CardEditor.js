@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { useStage } from '../context/StageContext'
 import MainToolbar from '../components/CardEditor/MainToolbar'
 import TextToolbar from '../components/Toolbars/TextToolbar'
@@ -10,8 +10,10 @@ import ShapesToolbar from '../components/Toolbars/ShapesToolbar'
 import ImageElement from '../components/ImageComponents/ImageElement'
 import styled from 'styled-components'
 import ImagesToolbar from '../components/Toolbars/ImagesToolbar'
+import { useNavigate } from 'react-router-dom'
 import { jsPDF } from 'jspdf'
-import { postToCheckout } from '../services/checkoutServices/postToCheckout'
+// import axios from 'axios'
+import { postToCloudinary } from '../services/checkoutServices/postToCheckout'
 
 export const CardEditor = () => {
 	const {
@@ -25,10 +27,14 @@ export const CardEditor = () => {
 		changeShapePosition,
 		changeShapeSize,
 		changeImagePosition,
-		changeImageSize
+		changeImageSize,
+		// pdfUrl,
+		setPDFUrl
 	} = useStage()
 
-	const [redirectUrl, setredirectUrl] = useState(null)
+	let navigate = useNavigate()
+
+	// const [redirectUrl, setredirectUrl] = useState(null)
 
 	const stageRef = useRef(null)
 
@@ -43,6 +49,20 @@ export const CardEditor = () => {
 	const selectImage = (id) => {
 		setSelectedElement(id, 'image')
 	}
+
+	function addWaterMark(doc) {
+		var totalPages = doc.internal.getNumberOfPages();
+	  
+		for (let i = 1; i <= totalPages; i++) {
+		  doc.setPage(i);
+		  //doc.addImage(imgData, 'PNG', 40, 40, 75, 75);
+		  doc.setTextColor(150);
+		  doc.setFontSize(250)
+		  doc.text(710, 1754, 'Litografía Gil');
+		}
+	  
+		return doc;
+	  }
 
 	const exportToPDF = async (stage) => {
 		let pdf = new jsPDF('p', 'px', [3508, 2480], true)
@@ -59,16 +79,24 @@ export const CardEditor = () => {
 			633
 		)
 
-		pdf.save('canvas.pdf')
-		return pdf.output('blob')
+		pdf = addWaterMark(pdf);
+		// pdf.save('canvas.pdf')
+		//return pdf.output('blob')
+
+		const url = await postToCloudinary(pdf.output('blob'))
+
+		setPDFUrl(url)
+		console.log(url);
+
+		navigate('checkout')
 	}
 
-	const postPdfAndCheckout = async () => {
-		const pdf = await exportToPDF()
-		const url = await postToCheckout('price_1MLxogFPiM3jeCEiCsDS0lDy', pdf)
-		setredirectUrl(url)
-		console.log(url)
-	}
+	// const postPdfAndCheckout = async () => {
+	// 	const pdf = await exportToPDF()
+	// 	const url = await postToCheckout('price_1MLxogFPiM3jeCEiCsDS0lDy', pdf)
+	// 	setredirectUrl(url)
+	// 	console.log(url)
+	// }
 
 	return (
 		<>
@@ -212,11 +240,12 @@ export const CardEditor = () => {
 						</Layer>
 					</Stage>
 				</div>
-				<span title="pdf" className="" onClick={() => exportToPDF()}>
-					PDF
-				</span>
+				<button title="pdf" className="button" 
+					onClick={exportToPDF}
+				>Previewer
+				</button>
 			</Wrapper>
-			<button type="button" onClick={postPdfAndCheckout}>
+			{/* <button type="button" onClick={postPdfAndCheckout}>
 				Checkout
 			</button>
 			{redirectUrl && (
@@ -224,7 +253,7 @@ export const CardEditor = () => {
 					Si no fuiste redirigido automaticamente da click{' '}
 					<a href={redirectUrl}>AQUI</a>
 				</div>
-			)}
+			)}*/}
 		</>
 	)
 }

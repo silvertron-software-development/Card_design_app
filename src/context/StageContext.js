@@ -10,6 +10,7 @@ const initialState = {
   selectedElement: initialText.id,
   selectedType: 'text',
   globalZindex: 0,
+  pdfUrl: null
 }
 
 const StageContext = createContext()
@@ -18,6 +19,10 @@ export const useStage = () => useContext(StageContext)
 
 export const StageProvider = ({ children }) => {
   const [state, dispatch] = useReducer(Reducer, initialState)
+
+  const setPDFUrl = (url) => {
+    dispatch({ type: 'SET_PDF_URL', payload: { url } })
+  }
 
   const findTextElement = (id) => {
     return state.textElements.find((el) => el.id === id)
@@ -128,6 +133,7 @@ export const StageProvider = ({ children }) => {
     <StageContext.Provider
       value={{
         ...state,
+        setPDFUrl,
         findTextElement,
         findShape,
         findImage,

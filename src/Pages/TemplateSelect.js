@@ -8,14 +8,15 @@ export const TemplateSelect = () => {
 
     let templates = [{
         "id": 1,
-        "title": "Template a"
+        "title": "Tarjetas de presentación"
       }, {
         "id": 2,
-        "title": "Template b"
-      }, {
-        "id": 3,
-        "title": "Template c"
-      }];
+        "title": "Hojas membretadas"}
+    //   }, {
+    //     "id": 3,
+    //     "title": "Template c"
+    //   }
+    ];
 
     return <>
 
@@ -37,12 +38,13 @@ export const TemplateSelect = () => {
                             <div className="navbar-end">
                                 <div className="is-right">
                                     <span className="navbar-item">
-                                        <span className="button is-outlined">
+                                    <Link to='editor'><span className="button is-outlined">
                                             {/* <span class="icon">
                                                 <i class="fa fa-github"></i>
                                             </span> */}
-                                            <span title="Hello from the other side"><Link to='editor'>Ir al editor</Link></span>
+                                            <span title="Hello from the other side">Ir al editor</span>
                                         </span>
+                                    </Link>
                                     </span>
                                 </div>
                             </div>
@@ -68,14 +70,14 @@ export const TemplateSelect = () => {
         </div>
 
         <section className="container">
-        <div className="columns features">
+        {/* <div className="columns features">
             { templates.map( (template) =>
                 
                 <div className="column is-4" key={template.id}>
                     <div className="card is-shady">
                         <div className="card-image has-text-centered">
                             {/* <i class="fa fa-apple"></i> */}
-                        </div>
+                        {/*</div>
                         <div className="card-content">
                             <div className="content">
                                 <h4> Leo integer malesuada nunc vel risus. </h4>
@@ -86,24 +88,26 @@ export const TemplateSelect = () => {
                     </div>
                 </div> 
                       
-        )}
-        </div> 
+        )} 
+        </div> */}
             <div className="intro column is-8 is-offset-2">
                 <h2 className="title">¡Prueba nuestro editor o alguna de nuestras plantillas!</h2><br/>
-                <p className="subtitle">¡Herramienta perfecta para una tarjeta de presentación profesional sin ser diseñador!</p>
+                <p className="subtitle">¡La herramienta perfecta para una tarjeta de presentación profesional sin ser diseñador!</p>
             </div>
             <div className="columns features">
             { templates.map( template =>
                 
-                <div className="column is-4" key={template.id}>
+                <div className="column is-6" key={template.id}>
                     <div className="card is-shady">
                         <div className="card-image has-text-centered">
-                            {/* <i className="fa fa-apple"></i> */}
+                        <figure class="image">
+                            <img src="https://res.cloudinary.com/ameo/image/upload/v1568711475/pexels-photo-1302883_fjje0f.jpg" alt="Placeholder"/>
+                        </figure>
                         </div>
                         <div className="card-content">
                             <div className="content">
-                                <h4> Leo integer malesuada nunc vel risus. </h4>
-                                <p>Imperdiet dui accumsan sit amet nulla facilisi morbi. Fusce ut placerat orci nulla pellentesque dignissim enim. Libero id faucibus nisl tincidunt eget nullam. Commodo viverra maecenas accumsan lacus vel facilisis.</p>
+                                {/* <h4> Leo integer malesuada nunc vel risus. </h4> */}
+                                {/* <p>Imperdiet dui accumsan sit amet nulla facilisi morbi. Fusce ut placerat orci nulla pellentesque dignissim enim. Libero id faucibus nisl tincidunt eget nullam. Commodo viverra maecenas accumsan lacus vel facilisis.</p> */}
                                 <TemplateCard key={template.id} title={template.title}/>
                             </div>
                         </div>

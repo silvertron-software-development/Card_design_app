@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { FiExternalLink } from 'react-icons/fi'
 
 export const TemplateCard = ({ title }) => {
   return (
     <>
       <Wrapper>
         {/* <li key={key}> */}
-          <Link to='/editor'>{title}</Link>
+          <Link to='/editor' className='has-text-weight-bold'>{title} <FiExternalLink/></Link>
         {/* </li> */}
       </Wrapper>
     </>

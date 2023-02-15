@@ -1,5 +1,7 @@
 const StageReducer = (state, action) => {
   switch (action.type) {
+    case 'SET_PDF_URL':
+      return {...state, pdfUrl: action.payload.url}
     case 'SET_SELECTED_ELEMENT':
       return {
         ...state,

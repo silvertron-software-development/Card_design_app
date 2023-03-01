@@ -2,38 +2,29 @@ import React, { useRef } from 'react'
 import { useStage } from '../context/StageContext'
 import MainToolbar from '../components/CardEditor/MainToolbar'
 import TextToolbar from '../components/Toolbars/TextToolbar'
-import Rectangle from '../components/Shapes/Rectangle'
-import CircleComponent from '../components/Shapes/CircleComponent'
-import { TextComponent } from '../components/TextComponent'
-import { Stage, Layer } from 'react-konva'
 import ShapesToolbar from '../components/Toolbars/ShapesToolbar'
-import ImageElement from '../components/ImageComponents/ImageElement'
 import styled from 'styled-components'
 import ImagesToolbar from '../components/Toolbars/ImagesToolbar'
 import { useNavigate } from 'react-router-dom'
 import { jsPDF } from 'jspdf'
 import { postToCloudinary } from '../services/checkoutServices/postToCheckout'
+import CardStage from '../components/CardEditor/CardStage'
 
 export const CardEditor = () => {
 	const {
-		textElements,
-		shapes,
-		images,
-		changePosition,
-		selectedElement,
+		frontSideCard,
+		backSideCard,
 		selectedType,
 		setSelectedElement,
-		changeShapePosition,
-		changeShapeSize,
-		changeImagePosition,
-		changeImageSize,
-		// pdfUrl,
-		setPDFUrl
+		setPDFUrl,
+		setActiveSide,
+		isFrontSideActive
 	} = useStage()
 
 	let navigate = useNavigate()
 
-	const stageRef = useRef(null)
+	const frontStageRef = useRef(null)
+	const backStageRef = useRef(null)
 
 	const eraseSelection = () => {
 		setSelectedElement(null, null)
@@ -48,23 +39,23 @@ export const CardEditor = () => {
 	}
 
 	function addWaterMark(doc) {
-		var totalPages = doc.internal.getNumberOfPages();
-	  
+		var totalPages = doc.internal.getNumberOfPages()
+
 		for (let i = 1; i <= totalPages; i++) {
-		  doc.setPage(i);
-		  //doc.addImage(imgData, 'PNG', 40, 40, 75, 75);
-		  doc.setTextColor(150);
-		  doc.setFontSize(250)
-		  doc.text(710, 1754, 'Litografía Gil');
+			doc.setPage(i)
+			//doc.addImage(imgData, 'PNG', 40, 40, 75, 75);
+			doc.setTextColor(150)
+			doc.setFontSize(250)
+			doc.text(710, 1754, 'Litografía Gil')
 		}
-	  
-		return doc;
-	  }
+
+		return doc
+	}
 
 	const exportToPDF = async (stage) => {
 		let pdf = new jsPDF('p', 'px', [3508, 2480], true)
 
-		let canvas = stageRef.current.getStage()
+		let canvas = frontStageRef.current.getStage()
 
 		pdf.addImage(
 			canvas.toDataURL({ pixelRatio: 2 }),
@@ -81,158 +72,49 @@ export const CardEditor = () => {
 		const url = await postToCloudinary(pdf.output('blob'))
 
 		setPDFUrl(url)
-		console.log(url);
+		console.log(url)
 
 		navigate('checkout')
 	}
 
 	return (
 		<>
+			<h3>Hello</h3>
+			<button type="button" onClick={() => setActiveSide()}>
+				Cambiar Lado
+			</button>
 			<Wrapper>
 				{selectedType === 'text' && <TextToolbar />}
 				{selectedType === 'shape' && <ShapesToolbar />}
 				{selectedType === 'image' && <ImagesToolbar />}
 				<MainToolbar />
-				<div
-					style={{
-						borderWidth: '1px',
-						borderColor: 'rgba(0, 0, 0, 0.1)',
-						borderStyle: 'solid',
-						boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px'
-					}}
-				>
-					<Stage
-						width={1083}
-						height={633}
-						ref={stageRef}
-						onDblClick={eraseSelection}
-					>
-						<Layer>
-							{shapes.map((shape) => {
-								if (shape.component === 'Circle') {
-									return (
-										<CircleComponent
-											x={shape.x}
-											y={shape.y}
-											radius={shape.radius}
-											zIndex={shape.zIndex}
-											isSelected={shape.id === selectedElement}
-											strokeWidth={shape.strokeWidth}
-											fill={shape.fill}
-											stroke={shape.stroke}
-											key={shape.id}
-											id={shape.id}
-											onSelect={selectShape}
-											onResize={changeShapeSize}
-											onPositionChange={(newAttrs) => {
-												changeShapePosition(newAttrs)
-											}}
-										/>
-									)
-								}
-								return (
-									<Rectangle
-										x={shape.x}
-										y={shape.y}
-										isSelected={shape.id === selectedElement}
-										zIndex={shape.zIndex}
-										width={shape.width}
-										height={shape.height}
-										fill={shape.fill}
-										stroke={shape.stroke}
-										strokeWidth={shape.strokeWidth}
-										onSelect={selectShape}
-										onResize={changeShapeSize}
-										key={shape.id}
-										id={shape.id}
-										onPositionChange={(newAttrs) => {
-											changeShapePosition(newAttrs)
-										}}
-									/>
-								)
-							})}
-
-							{textElements.map((word) => {
-								const {
-									x,
-									y,
-									fill,
-									fontStyle,
-									text,
-									id,
-									align,
-									fontSize,
-									textDecoration,
-									fontFamily,
-									zIndex
-								} = word
-								return (
-									<TextComponent
-										x={x}
-										y={y}
-										fill={fill}
-										text={text}
-										selected={selectedElement === id}
-										setSelected={setSelectedElement}
-										key={id}
-										id={id}
-										align={align}
-										fontSize={fontSize}
-										textDecoration={textDecoration}
-										fontFamily={fontFamily}
-										fontStyle={fontStyle}
-										zIndex={zIndex}
-										onPositionChange={(newAttrs) => {
-											changePosition(newAttrs)
-										}}
-									/>
-								)
-							})}
-							{images.map((image) => {
-								const {
-									x,
-									y,
-									width,
-									height,
-									id,
-									src,
-									fill,
-									red,
-									green,
-									blue,
-									alpha
-								} = image
-								return (
-									<ImageElement
-										key={id}
-										src={src}
-										id={id}
-										fill={fill}
-										x={x}
-										y={y}
-										width={width}
-										height={height}
-										red={red}
-										green={green}
-										blue={blue}
-										alpha={alpha}
-										onPositionChange={(newAttrs) =>
-											changeImagePosition(newAttrs)
-										}
-										selected={selectedElement === id}
-										onResize={changeImageSize}
-										onSelect={selectImage}
-									/>
-								)
-							})}
-						</Layer>
-					</Stage>
+				<div>
+					<CardStage
+						stageRef={frontStageRef}
+						eraseSelection={eraseSelection}
+						elements={frontSideCard}
+						selectShape={selectShape}
+						selectImage={selectImage}
+						active={isFrontSideActive}
+					/>
+					<CardStage
+						stageRef={backStageRef}
+						eraseSelection={eraseSelection}
+						elements={backSideCard}
+						selectShape={selectShape}
+						selectImage={selectImage}
+						active={!isFrontSideActive}
+					/>
 				</div>
-				<button title="pdf" className="button" 
-					onClick={exportToPDF}
-				>Previewer
+
+				<button title="pdf" className="button" onClick={exportToPDF}>
+					Previewer
 				</button>
 			</Wrapper>
+			<button title="pdf" className="button" onClick={exportToPDF}>
+				Previewer
+			</button>
+			<h3>Bye</h3>
 		</>
 	)
 }

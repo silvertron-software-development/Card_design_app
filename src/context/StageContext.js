@@ -1,16 +1,24 @@
 import { useReducer, createContext, useContext } from 'react'
 import Reducer from '../Reducers/StageReducer'
 import { v4 as uuidv4 } from 'uuid'
-import { initialText } from '../helpers/textInitials'
+import { initialText, initialText2 } from '../helpers/textInitials'
 
 const initialState = {
-  shapes: [],
-  textElements: [initialText],
-  images: [],
-  selectedElement: initialText.id,
-  selectedType: 'text',
-  globalZindex: 0,
-  pdfUrl: null
+	frontSideCard: {
+		shapes: [],
+		textElements: [initialText],
+		images: []
+	},
+	backSideCard: {
+		shapes: [],
+		textElements: [initialText2],
+		images: []
+	},
+	isFrontSideActive: true,
+	selectedElement: initialText.id,
+	selectedType: 'text',
+	globalZindex: 0,
+	pdfUrl: null
 }
 
 const StageContext = createContext()
@@ -18,146 +26,182 @@ const StageContext = createContext()
 export const useStage = () => useContext(StageContext)
 
 export const StageProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(Reducer, initialState)
+	const [state, dispatch] = useReducer(Reducer, initialState)
 
-  const setPDFUrl = (url) => {
-    dispatch({ type: 'SET_PDF_URL', payload: { url } })
-  }
+	const getSide = () =>
+		state.isFrontSideActive ? 'frontSideCard' : 'backSideCard'
 
-  const findTextElement = (id) => {
-    return state.textElements.find((el) => el.id === id)
-  }
+	const setPDFUrl = (url) => {
+		dispatch({ type: 'SET_PDF_URL', payload: { url } })
+	}
 
-  const findShape = (id) => {
-    return state.shapes.find((el) => el.id === id)
-  }
+	const setActiveSide = () => {
+		console.log(!state.isFrontSideActive)
+		dispatch({ type: 'SET_ACTIVE_SIDE', payload: !state.isFrontSideActive })
+	}
 
-  const findImage = (id) => {
-    return state.images.find((el) => el.id === id)
-  }
+	const findTextElement = (id) => {
+		const cardSide = getSide()
+		return state[cardSide].textElements.find((el) => el.id === id)
+	}
 
-  const setSelectedElement = (id, type) => {
-    dispatch({ type: 'SET_SELECTED_ELEMENT', payload: { id, type } })
-  }
+	const findShape = (id) => {
+		const cardSide = getSide()
+		return state[cardSide].shapes.find((el) => el.id === id)
+	}
 
-  const addShape = (newShape) => {
-    dispatch({
-      type: 'ADD_SHAPE',
-      payload: { ...newShape, id: uuidv4() },
-    })
-  }
+	const findImage = (id) => {
+		const cardSide = getSide()
+		return state[cardSide].images.find((el) => el.id === id)
+	}
 
-  const addText = () => {
-    dispatch({ type: 'ADD_TEXT', payload: { id: uuidv4() } })
-  }
+	const setSelectedElement = (id, type) => {
+		const cardSide = getSide()
+		dispatch({ type: 'SET_SELECTED_ELEMENT', payload: { cardSide, id, type } })
+	}
 
-  const handleTextChange = (newText, id) => {
-    dispatch({ type: 'CHANGE_TEXT', payload: { newText, id } })
-  }
+	const addShape = (newShape) => {
+		const cardSide = getSide()
+		dispatch({
+			type: 'ADD_SHAPE',
+			payload: { ...newShape, id: uuidv4(), cardSide }
+		})
+	}
 
-  const handleTextPropertyChange = (propertyName, newProperties, id) => {
-    dispatch({
-      type: 'CHANGE_TEXT_PROPERTIES',
-      payload: { propertyName, newProperties, id: id },
-    })
-  }
+	const addText = () => {
+		const cardSide = getSide()
+		dispatch({ type: 'ADD_TEXT', payload: { cardSide, id: uuidv4() } })
+	}
 
-  const deleteTextElement = (id) => {
-    dispatch({ type: 'DELETE_TEXT', payload: id })
-  }
+	const handleTextChange = (newText, id) => {
+		const cardSide = getSide()
+		dispatch({ type: 'CHANGE_TEXT', payload: { cardSide, newText, id } })
+	}
 
-  const changePosition = (newPosition) => {
-    dispatch({ type: 'CHANGE_POSITION', payload: newPosition })
-  }
+	const handleTextPropertyChange = (propertyName, newProperties, id) => {
+		const cardSide = getSide()
+		dispatch({
+			type: 'CHANGE_TEXT_PROPERTIES',
+			payload: { propertyName, newProperties, id, cardSide }
+		})
+	}
 
-  const changeShapePosition = (newPosition) => {
-    dispatch({ type: 'CHANGE_SHAPE_POSITION', payload: newPosition })
-  }
+	const deleteTextElement = (id) => {
+		const cardSide = getSide()
+		dispatch({ type: 'DELETE_TEXT', payload: { id, cardSide } })
+	}
 
-  const handleShapePropertyChange = (propertyName, newProperties, id) => {
-    console.log(newProperties)
-    dispatch({
-      type: 'CHANGE_SHAPE_PROPERTIES',
-      payload: { propertyName, newProperties, id },
-    })
-  }
+	const changePosition = (newPosition) => {
+		const cardSide = getSide()
+		newPosition = { ...newPosition, cardSide }
+		dispatch({ type: 'CHANGE_POSITION', payload: newPosition })
+	}
 
-  const changeShapeSize = (newSize) => {
-    dispatch({ type: 'CHANGE_SHAPE_SIZE', payload: newSize })
-  }
+	const changeShapePosition = (newPosition) => {
+		const cardSide = getSide()
+		newPosition = { ...newPosition, cardSide }
+		dispatch({ type: 'CHANGE_SHAPE_POSITION', payload: newPosition })
+	}
 
-  const deleteShape = (id) => {
-    dispatch({ type: 'DELETE_SHAPE', payload: id })
-  }
+	const handleShapePropertyChange = (propertyName, newProperties, id) => {
+		const cardSide = getSide()
+		dispatch({
+			type: 'CHANGE_SHAPE_PROPERTIES',
+			payload: { propertyName, newProperties, id, cardSide }
+		})
+	}
 
-  const addImage = (values) => {
-    console.log(values)
-    dispatch({ type: 'ADD_IMAGE', payload: { ...values, id: uuidv4() } })
-  }
+	const changeShapeSize = (newSize) => {
+		const cardSide = getSide()
+		newSize = { ...newSize, cardSide }
+		dispatch({ type: 'CHANGE_SHAPE_SIZE', payload: newSize })
+	}
 
-  const changeImagePosition = (newPosition) => {
-    const { x, y, id } = newPosition
-    console.log(x, y)
-    dispatch({ type: 'CHANGE_IMAGE_POSITION', payload: { x, y, id } })
-  }
+	const deleteShape = (id) => {
+		const cardSide = getSide()
+		dispatch({ type: 'DELETE_SHAPE', payload: { id, cardSide } })
+	}
 
-  const changeImageSize = (newSize) => {
-    dispatch({ type: 'CHANGE_IMAGE_SIZE', payload: newSize })
-  }
+	const addImage = (values) => {
+		const cardSide = getSide()
+		dispatch({
+			type: 'ADD_IMAGE',
+			payload: { ...values, id: uuidv4(), cardSide }
+		})
+	}
 
-  const handleImagePropertyChange = (propertyName, newProperties, id) => {
-    dispatch({
-      type: 'CHANGE_IMAGE_PROPERTIES',
-      payload: { propertyName, newProperties, id },
-    })
-  }
+	const changeImagePosition = (newPosition) => {
+		const { x, y, id } = newPosition
+		const cardSide = getSide()
+		dispatch({ type: 'CHANGE_IMAGE_POSITION', payload: { x, y, id, cardSide } })
+	}
 
-  const handleImageFilterChange = (rgbaArray, id) => {
-    dispatch({ type: 'CHANGE_IMAGE_FILTERS', payload: { rgbaArray, id } })
-  }
+	const changeImageSize = (newSize) => {
+		const cardSide = getSide()
+		newSize = { ...newSize, cardSide }
+		dispatch({ type: 'CHANGE_IMAGE_SIZE', payload: newSize })
+	}
 
-  const deleteImage = (id) => {
-    dispatch({ type: 'DELETE_IMAGE', payload: id })
-  }
+	const handleImagePropertyChange = (propertyName, newProperties, id) => {
+		const cardSide = getSide()
+		dispatch({
+			type: 'CHANGE_IMAGE_PROPERTIES',
+			payload: { propertyName, newProperties, id, cardSide }
+		})
+	}
 
-  const handleZIndexChange = (elementArray, id, isIncreasing) => {
-    let value = 0
-    if (isIncreasing) {
-      value = state.globalZindex + 1
-    }
-    console.log(elementArray, id, isIncreasing)
-    dispatch({ type: 'CHANGE_Z_INDEX', payload: { elementArray, id, value } })
-  }
+	const handleImageFilterChange = (rgbaArray, id) => {
+		const cardSide = getSide()
+		dispatch({
+			type: 'CHANGE_IMAGE_FILTERS',
+			payload: { rgbaArray, id, cardSide }
+		})
+	}
 
-  return (
-    <StageContext.Provider
-      value={{
-        ...state,
-        setPDFUrl,
-        findTextElement,
-        findShape,
-        findImage,
-        setSelectedElement,
-        addShape,
-        deleteTextElement,
-        handleTextChange,
-        addText,
-        changePosition,
-        handleTextPropertyChange,
-        changeShapePosition,
-        changeShapeSize,
-        handleShapePropertyChange,
-        deleteShape,
-        addImage,
-        changeImagePosition,
-        changeImageSize,
-        handleImagePropertyChange,
-        handleImageFilterChange,
-        deleteImage,
-        handleZIndexChange,
-      }}
-    >
-      {children}
-    </StageContext.Provider>
-  )
+	const deleteImage = (id) => {
+		const cardSide = getSide()
+		dispatch({ type: 'DELETE_IMAGE', payload: { id, cardSide } })
+	}
+
+	const handleZIndexChange = (elementArray, id, isIncreasing) => {
+		let value = 0
+		if (isIncreasing) {
+			value = state.globalZindex + 1
+		}
+		console.log(elementArray, id, isIncreasing)
+		dispatch({ type: 'CHANGE_Z_INDEX', payload: { elementArray, id, value } })
+	}
+
+	return (
+		<StageContext.Provider
+			value={{
+				...state,
+				setActiveSide,
+				setPDFUrl,
+				findTextElement,
+				findShape,
+				findImage,
+				setSelectedElement,
+				addShape,
+				deleteTextElement,
+				handleTextChange,
+				addText,
+				changePosition,
+				handleTextPropertyChange,
+				changeShapePosition,
+				changeShapeSize,
+				handleShapePropertyChange,
+				deleteShape,
+				addImage,
+				changeImagePosition,
+				changeImageSize,
+				handleImagePropertyChange,
+				handleImageFilterChange,
+				deleteImage,
+				handleZIndexChange
+			}}
+		>
+			{children}
+		</StageContext.Provider>
+	)
 }

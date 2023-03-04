@@ -8,7 +8,8 @@ exports.handler = async function (event, context) {
 	})
 
 	console.log('Hola funcion nueva')
-	const { url } = bodyJson
+	let { url } = bodyJson
+	url = url.replace('https://', '')
 
 	const preference = {
 		binary_mode: true,
@@ -22,7 +23,7 @@ exports.handler = async function (event, context) {
 			}
 		],
 		back_urls: {
-			success: 'https://www.waltergplata.com',
+			success: `${process.env.REACT_APP_BASE_URL}/payment-success/`,
 			failure: 'https://www.waltergplata.com',
 			pending: 'https://www.waltergplata.com'
 		},

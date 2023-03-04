@@ -17,15 +17,13 @@ export const postToCloudinary = async (pdf) => {
 		const { url } = data
 		// console.log(url);
 		return url
-
-		} catch (error) {
+	} catch (error) {
 		console.log(error)
 	}
 }
 
 export const checkout = async (cartInfo, url) => {
 	try {
-		
 		const { data: data2 } = await axios.post(
 			'/.netlify/functions/createCheckoutSession',
 			{
@@ -69,5 +67,14 @@ export const postToCheckout = async (cartInfo, pdf) => {
 		return data2.body.sandbox_init_point
 	} catch (error) {
 		console.log(error)
+	}
+}
+
+export const postCloudinaryUrl = async (url) => {
+	try {
+		const { data } = await axios.post('/.netlify/functions/sendEmail', { url })
+		return data
+	} catch (err) {
+		return err
 	}
 }

@@ -75,6 +75,7 @@ export const postCloudinaryUrl = async (url) => {
 		const { data } = await axios.post('/.netlify/functions/sendEmail', { url })
 		return data
 	} catch (err) {
+		console.log(err)
 		return err
 	}
 }

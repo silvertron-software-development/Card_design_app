@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { jsPDF } from 'jspdf'
 import { postToCloudinary } from '../services/checkoutServices/postToCheckout'
 import CardStage from '../components/CardEditor/CardStage'
+import SimpleHeader from '../components/Toolbars/SimpleHeader'
 
 export const CardEditor = () => {
 	const {
@@ -84,6 +85,7 @@ export const CardEditor = () => {
 				Cambiar Lado
 			</button>
 			<Wrapper>
+				{!selectedType && <SimpleHeader />}
 				{selectedType === 'text' && <TextToolbar />}
 				{selectedType === 'shape' && <ShapesToolbar />}
 				{selectedType === 'image' && <ImagesToolbar />}

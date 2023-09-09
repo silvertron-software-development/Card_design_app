@@ -39,6 +39,7 @@ const ShapeSelect = () => {
 				return (
 					<span
 						key={name}
+						className="shape-icon"
 						onClick={() =>
 							addImage({
 								src: src,

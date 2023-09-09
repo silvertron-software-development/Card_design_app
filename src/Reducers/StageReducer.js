@@ -34,15 +34,16 @@ const StageReducer = (state, action) => {
 			}
 
 		case 'ADD_TEXT':
+			console.log(action.payload)
 			return {
 				...state,
 				[action.payload.cardSide]: {
 					...state[action.payload.cardSide],
 					textElements: [
-						...state[action.payload.cardisde].textElements,
+						...state[action.payload.cardSide].textElements,
 						{
-							text: '',
 							id: action.payload.id,
+							text: '',
 							x: 140,
 							y: 140,
 							align: 'center',
@@ -194,7 +195,8 @@ const StageReducer = (state, action) => {
 							x: 150,
 							y: 150,
 							fill: action.payload.fill,
-							lineCap: action.payload.lineCap
+							lineCap: action.payload.lineCap,
+							isPhoto: action.payload.isPhoto || false
 						}
 					]
 				}

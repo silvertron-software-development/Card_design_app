@@ -25,16 +25,17 @@ const TextToolbar = () => {
 	const { fontSize, fontStyle, fontFamily, fill, textDecoration } =
 		selectedTextElement
 
-	const handleStyleChange = (e, style) => {
+	const handleStyleChange = (e, property, style) => {
 		let newStyle = fontStyle
+		console.log(newStyle)
 
 		if (newStyle.includes(style)) {
 			const replaced = newStyle.replace(style, '')
-			handleTextPropertyChange(replaced, selectedElement)
+			handleTextPropertyChange(property, replaced, selectedElement)
 			return
 		}
 		newStyle = `${newStyle} ${style}`
-		handleTextPropertyChange(newStyle, selectedElement)
+		handleTextPropertyChange(property, newStyle, selectedElement)
 		return
 	}
 
@@ -102,14 +103,14 @@ const TextToolbar = () => {
 			<span
 				title="Cursiva"
 				className="text-icon"
-				onClick={(e) => handleStyleChange(e, 'italic')}
+				onClick={(e) => handleStyleChange(e, 'fontStyle', 'italic')}
 			>
 				<FaItalic />
 			</span>
 			<span
 				title="Negritas"
 				className="text-icon"
-				onClick={(e) => handleStyleChange(e, 'bold')}
+				onClick={(e) => handleStyleChange(e, 'fontStyle', 'bold')}
 			>
 				<FaBold />
 			</span>

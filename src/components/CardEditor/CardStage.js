@@ -27,13 +27,11 @@ const CardStage = ({
 
 	const { shapes, textElements, images } = elements
 
-	console.log(active)
-
 	return (
 		<Wrapper active={active}>
 			<Stage
-				width={1083}
-				height={633}
+				width={850}
+				height={500}
 				ref={stageRef}
 				onDblClick={eraseSelection}
 			>
@@ -130,7 +128,8 @@ const CardStage = ({
 							red,
 							green,
 							blue,
-							alpha
+							alpha,
+							isPhoto
 						} = image
 						return (
 							<ImageElement
@@ -138,6 +137,7 @@ const CardStage = ({
 								src={src}
 								id={id}
 								fill={fill}
+								isPhoto={isPhoto}
 								x={x}
 								y={y}
 								width={width}

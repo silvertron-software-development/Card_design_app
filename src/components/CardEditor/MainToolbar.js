@@ -55,10 +55,11 @@ const MainToolbar = () => {
 export default MainToolbar
 
 const Wrapper = styled.div`
-	width: 35%;
+	width: 100%;
 	display: grid;
-	grid-template-columns: 2fr 1fr;
-	margin-left: 2rem;
+	grid-template-columns: 1fr 2fr;
+	justify-items: center;
+	margin-left: 0rem;
 	// background-color: #F6F7F7;
 
 	.select-container {
@@ -67,6 +68,8 @@ const Wrapper = styled.div`
 		margin: 15px 15px 15px 15px;
 		padding: 10px;
 		border-bottom: 2px solid #f49441;
+		max-width: 350px;
+		min-width: 300px;
 		// border-radius: 3px;
 	}
 `

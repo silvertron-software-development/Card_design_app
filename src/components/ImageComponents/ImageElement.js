@@ -18,7 +18,8 @@ const ImageElement = ({
 	onPositionChange,
 	selected,
 	onResize,
-	onSelect
+	onSelect,
+	isPhoto
 }) => {
 	const imageRef = useRef()
 	const trRef = useRef()
@@ -44,6 +45,8 @@ const ImageElement = ({
 		// eslint-disable-next-line
 	}, [image, red, green, blue, alpha])
 
+	console.log(isPhoto)
+
 	return (
 		<>
 			<Image
@@ -52,7 +55,7 @@ const ImageElement = ({
 				onTap={() => onSelect(id)}
 				x={x}
 				y={y}
-				filters={[Konva.Filters.RGBA]}
+				filters={isPhoto ? null : [Konva.Filters.RGBA]}
 				image={image}
 				ref={imageRef}
 				width={width}

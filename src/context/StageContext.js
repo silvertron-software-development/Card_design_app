@@ -80,6 +80,7 @@ export const StageProvider = ({ children }) => {
 
 	const handleTextPropertyChange = (propertyName, newProperties, id) => {
 		const cardSide = getSide()
+		console.log(propertyName, newProperties, id)
 		dispatch({
 			type: 'CHANGE_TEXT_PROPERTIES',
 			payload: { propertyName, newProperties, id, cardSide }

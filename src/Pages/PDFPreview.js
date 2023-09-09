@@ -5,8 +5,7 @@ import PDFViewer from '../components/PDFViewer/PDFViewer'
 import { checkout } from '../services/checkoutServices/postToCheckout'
 
 export const PDFPreview = () => {
-
-    const {pdfUrl} = useStage()
+	const { pdfUrl } = useStage()
 
 	const [redirectUrl, setredirectUrl] = useState(null)
 
@@ -17,23 +16,20 @@ export const PDFPreview = () => {
 	}
 
 	return (
-			<Wrapper>
-				
-				<PDFViewer />
-                <button type="button" onClick={goToCheckout}>
-				    Checkout
-			    </button>
-			    {redirectUrl && (
+		<Wrapper>
+			<PDFViewer />
+
+			<button type="button" onClick={goToCheckout}>
+				Checkout
+			</button>
+			{redirectUrl && (
 				<div>
 					Si no fuiste redirigido automaticamente da click{' '}
 					<a href={redirectUrl}>AQUI</a>
 				</div>
 			)}
-			</Wrapper>
+		</Wrapper>
 	)
 }
 
-const Wrapper = styled.section`
-	display: grid;
-	grid-template-columns: 1fr 2fr 1fr;
-`
+const Wrapper = styled.section``

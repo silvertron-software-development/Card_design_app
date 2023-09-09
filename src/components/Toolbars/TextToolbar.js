@@ -8,113 +8,120 @@ import { FaUnderline, FaItalic, FaBold, FaTrashAlt } from 'react-icons/fa'
 import 'bulma/css/bulma.css'
 
 const TextToolbar = () => {
-  const {
-    handleTextPropertyChange,
-    findTextElement,
-    selectedElement,
-    deleteTextElement,
-    //handleZIndexChange,
-  } = useStage()
+	const {
+		handleTextPropertyChange,
+		findTextElement,
+		selectedElement,
+		deleteTextElement
+		//handleZIndexChange,
+	} = useStage()
 
-  const selectedTextElement = findTextElement(selectedElement)
+	const selectedTextElement = findTextElement(selectedElement)
 
-  const { fontSize, fontStyle, fontFamily, fill, textDecoration } =
-    selectedTextElement
+	if (!selectedElement) return
 
-  const handleStyleChange = (e, style) => {
-    let newStyle = fontStyle
+	console.log(selectedTextElement)
 
-    if (newStyle.includes(style)) {
-      const replaced = newStyle.replace(style, '')
-      handleTextPropertyChange('fontStyle', replaced, selectedElement)
-      return
-    }
-    newStyle = `${newStyle} ${style}`
-    handleTextPropertyChange('fontStyle', newStyle, selectedElement)
-    return
-  }
+	const { fontSize, fontStyle, fontFamily, fill, textDecoration } =
+		selectedTextElement
 
-  const handleChange = (e, propertyName) => {
-    let newProperty = e.target.value
-    if (propertyName === 'textDecoration' && textDecoration === '') {
-      newProperty = 'underline'
-    }
+	const handleStyleChange = (e, property, style) => {
+		let newStyle = fontStyle
+		console.log(newStyle)
 
-    if (propertyName === 'textDecoration' && textDecoration === 'underline') {
-      newProperty = ''
-    }
-    if (propertyName === 'fontSize') {
-      newProperty = Number(newProperty)
-    }
-    handleTextPropertyChange(propertyName, newProperty, selectedElement)
-  }
+		if (newStyle.includes(style)) {
+			const replaced = newStyle.replace(style, '')
+			handleTextPropertyChange(property, replaced, selectedElement)
+			return
+		}
+		newStyle = `${newStyle} ${style}`
+		handleTextPropertyChange(property, newStyle, selectedElement)
+		return
+	}
 
-  return (
-    <Wrapper className='card is-shady'>
-      <div>
-        <label htmlFor='primary_color' className='label'>Color del texto</label>
-        <input
-          type='color'
-          value={fill}
-          onChange={(e) => handleChange(e, 'fill')}
-          className='primary_color'
-          id='primary_color'
-        />
-      </div>
-      <div>
-        <label htmlFor='text-size' className='text-icon label'>
-          Tamaño
-        </label>
-        <input
-          type='number'
-          id='text-size'
-          value={fontSize}
-          onChange={(e) => handleChange(e, 'fontSize')}
-          className='input is-small'
-        />
-      </div>
-      <label htmlFor='letter-type' className='text-icon label'>
-        Fuente
-      </label>
-      <FontPicker
-        apiKey={process.env.REACT_APP_FONTS_KEY}
-        activeFontFamily={fontFamily}
-        limit={100}
-        onChange={(nextFont) => {
-          handleChange({ target: { value: nextFont.family } }, 'fontFamily')
-        }}
-        id='letter-type'
-        className='letter-type'
-      />
-      <span
-        title='Subrayado'
-        className='text-icon'
-        onClick={(e) => handleChange(e, 'textDecoration')}
-      >
-        <FaUnderline />
-      </span>
-      <span
-        title='Cursiva'
-        className='text-icon'
-        onClick={(e) => handleStyleChange(e, 'italic')}
-      >
-        <FaItalic />
-      </span>
-      <span
-        title='Negritas'
-        className='text-icon'
-        onClick={(e) => handleStyleChange(e, 'bold')}
-      >
-        <FaBold />
-      </span>
-      <span
-        title='Eliminar'
-        className='text-icon'
-        onClick={() => deleteTextElement(selectedElement)}
-      >
-        <FaTrashAlt />
-      </span>
-      {/* <DispositionButtons
+	const handleChange = (e, propertyName) => {
+		let newProperty = e.target.value
+		if (propertyName === 'textDecoration' && textDecoration === '') {
+			newProperty = 'underline'
+		}
+
+		if (propertyName === 'textDecoration' && textDecoration === 'underline') {
+			newProperty = ''
+		}
+		if (propertyName === 'fontSize') {
+			newProperty = Number(newProperty)
+		}
+		handleTextPropertyChange(propertyName, newProperty, selectedElement)
+	}
+
+	return (
+		<Wrapper className="card is-shady">
+			<div>
+				<label htmlFor="primary_color" className="label">
+					Color del texto
+				</label>
+				<input
+					type="color"
+					value={fill}
+					onChange={(e) => handleChange(e, 'fill')}
+					className="primary_color"
+					id="primary_color"
+				/>
+			</div>
+			<div>
+				<label htmlFor="text-size" className="text-icon label">
+					Tamaño
+				</label>
+				<input
+					type="number"
+					id="text-size"
+					value={fontSize}
+					onChange={(e) => handleChange(e, 'fontSize')}
+					className="input is-small"
+				/>
+			</div>
+			<label htmlFor="letter-type" className="text-icon label">
+				Fuente
+			</label>
+			<FontPicker
+				apiKey={process.env.REACT_APP_FONTS_KEY}
+				activeFontFamily={fontFamily}
+				limit={100}
+				onChange={(nextFont) => {
+					handleChange({ target: { value: nextFont.family } }, 'fontFamily')
+				}}
+				id="letter-type"
+				className="letter-type"
+			/>
+			<span
+				title="Subrayado"
+				className="text-icon"
+				onClick={(e) => handleChange(e, 'textDecoration')}
+			>
+				<FaUnderline />
+			</span>
+			<span
+				title="Cursiva"
+				className="text-icon"
+				onClick={(e) => handleStyleChange(e, 'fontStyle', 'italic')}
+			>
+				<FaItalic />
+			</span>
+			<span
+				title="Negritas"
+				className="text-icon"
+				onClick={(e) => handleStyleChange(e, 'fontStyle', 'bold')}
+			>
+				<FaBold />
+			</span>
+			<span
+				title="Eliminar"
+				className="text-icon"
+				onClick={() => deleteTextElement(selectedElement)}
+			>
+				<FaTrashAlt />
+			</span>
+			{/* <DispositionButtons
         bringUp={() => {
           handleZIndexChange('textElements', selectedElement, true)
         }}
@@ -122,46 +129,46 @@ const TextToolbar = () => {
           handleZIndexChange('textElements', selectedElement, false)
         }}
       /> */}
-    </Wrapper>
-  )
+		</Wrapper>
+	)
 }
 
 export default TextToolbar
 
 const Wrapper = styled.section`
-  grid-column: 1 / 4;
-  height: 5rem;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  align-content: center;
-  background-color: #EAEAEA;
-  border-bottom: 2px solid #F49441;
-  margin-bottom 50px;
+	grid-column: 1 / 4;
+	height: 5rem;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	align-content: center;
+	background-color: #eaeaea;
+	border-bottom: 2px solid #f49441;
+	margin-bottom: 50px;
 
-  .primary_color {
-    border-radius: 50%;
-    height: 1.5rem;
-    width: 1.5rem;
-    border: none;
-    outline: none;
-    -webkit-appearance: none;
-    cursor: pointer;
-  }
+	.primary_color {
+		border-radius: 50%;
+		height: 1.5rem;
+		width: 1.5rem;
+		border: none;
+		outline: none;
+		-webkit-appearance: none;
+		cursor: pointer;
+	}
 
-  .letter-type {
-    height: fit-content;
-  }
+	.letter-type {
+		height: fit-content;
+	}
 
-  .primary_color::-webkit-color-swatch-wrapper {
-    padding: 0;
-  }
-  .primary_color::-webkit-color-swatch {
-    border: none;
-    border-radius: 50%;
-  }
+	.primary_color::-webkit-color-swatch-wrapper {
+		padding: 0;
+	}
+	.primary_color::-webkit-color-swatch {
+		border: none;
+		border-radius: 50%;
+	}
 
-  .text-icon {
-    cursor: pointer;
-  }
+	.text-icon {
+		cursor: pointer;
+	}
 `

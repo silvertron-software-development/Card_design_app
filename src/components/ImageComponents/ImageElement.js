@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-import { Image, Transformer } from 'react-konva';
-import useImage from 'use-image';
-import Konva from 'konva';
+import React, { useEffect, useRef } from 'react'
+import { Image, Transformer } from 'react-konva'
+import useImage from 'use-image'
+import Konva from 'konva'
 
 const ImageElement = ({
 	src,
@@ -19,31 +19,33 @@ const ImageElement = ({
 	selected,
 	onResize,
 	onSelect,
+	isPhoto
 }) => {
-	const imageRef = useRef();
-	const trRef = useRef();
-	const [image] = useImage(src, 'anonymous');
+	const imageRef = useRef()
+	const trRef = useRef()
+	const [image] = useImage(src, 'anonymous')
 
-	console.log(red, green, blue, alpha);
 	useEffect(() => {
 		if (selected) {
 			// we need to attach transformer manually
-			trRef.current.nodes([imageRef.current]);
-			trRef.current.getLayer().batchDraw();
+			trRef.current.nodes([imageRef.current])
+			trRef.current.getLayer().batchDraw()
 		}
-	}, [selected]);
+	}, [selected])
 
 	useEffect(() => {
 		if (image) {
 			// ver si se puede resetear el filtro 0,0,0 para asi poder aplicar filtros de colores
-			imageRef.current.cache();
-			imageRef.current.red(red);
-			imageRef.current.green(green);
-			imageRef.current.blue(blue);
-			imageRef.current.alpha(alpha);
+			imageRef.current.cache()
+			imageRef.current.red(red)
+			imageRef.current.green(green)
+			imageRef.current.blue(blue)
+			imageRef.current.alpha(alpha)
 		}
 		// eslint-disable-next-line
-	}, [image, red, green, blue, alpha]);
+	}, [image, red, green, blue, alpha])
+
+	console.log(isPhoto)
 
 	return (
 		<>
@@ -53,7 +55,7 @@ const ImageElement = ({
 				onTap={() => onSelect(id)}
 				x={x}
 				y={y}
-				filters={[Konva.Filters.RGBA]}
+				filters={isPhoto ? null : [Konva.Filters.RGBA]}
 				image={image}
 				ref={imageRef}
 				width={width}
@@ -74,28 +76,28 @@ const ImageElement = ({
 						'middle-right',
 						'bottom-center',
 						'bottom-right',
-						'bottom-left',
+						'bottom-left'
 					]}
 					boundBoxFunc={(oldBox, newBox) => {
-						const node = imageRef.current;
-						const scaleX = node.scaleX();
-						const scaleY = node.scaleY();
+						const node = imageRef.current
+						const scaleX = node.scaleX()
+						const scaleY = node.scaleY()
 						onResize({
 							x: node.x(),
 							y: node.y(),
 							width: Math.max(5, node.width() * scaleX),
-							height: Math.max(node.height() * scaleY),
-						});
+							height: Math.max(node.height() * scaleY)
+						})
 						// limit resize
 						if (newBox.width < 5 || newBox.height < 5) {
-							return oldBox;
+							return oldBox
 						}
-						return newBox;
+						return newBox
 					}}
 				/>
 			)}
 		</>
-	);
-};
+	)
+}
 
-export default ImageElement;
+export default ImageElement

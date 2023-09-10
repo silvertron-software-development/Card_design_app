@@ -6,14 +6,13 @@ import logo from '../assets/images/logo_printing.png'
 const PaymentSuccess = () => {
 	const [emailSuccess, setEmailSuccess] = useState(false)
 	const [emailError, setEmailError] = useState(false)
-	const { cloudinaryUrl } = useParams()
-	console.log(cloudinaryUrl)
+	const { cloudinaryFileId } = useParams()
 
 	useEffect(() => {
 		const postUrl = async () => {
-			const url = `https://${cloudinaryUrl}`
+			const url = `${process.env.REACT_APP_CLOUDINARY_FOLDER_URL}/${cloudinaryFileId}.pdf`
 			const data = await postCloudinaryUrl(url)
-			console.log(data)
+
 			if (data.response?.status >= 400) {
 				console.log(data.response?.status)
 				setEmailError(true)
@@ -22,7 +21,7 @@ const PaymentSuccess = () => {
 			setEmailSuccess(true)
 		}
 		postUrl()
-	}, [cloudinaryUrl])
+	}, [cloudinaryFileId])
 
 	return (
 		<section className="hero is-success is-fullheight">
@@ -49,11 +48,10 @@ const PaymentSuccess = () => {
 					</div>
 				</header>
 			</div>
-
 			<div className="hero-body">
 				<div className="container has-text-centered">
 					<p className="title">El pago fue exitoso</p>
-					<p class="subtitle">
+					<p className="subtitle">
 						{emailSuccess &&
 							'Su Pago ha sido recibido exitosamente, por favor en caso de dudas o comentarios ponerse en contacto con nosotros a ...'}
 						{emailError &&
@@ -61,8 +59,7 @@ const PaymentSuccess = () => {
 					</p>
 				</div>
 			</div>
-
-			<div class="hero-foot"></div>
+			<div className="hero-foot"></div>
 		</section>
 	)
 }

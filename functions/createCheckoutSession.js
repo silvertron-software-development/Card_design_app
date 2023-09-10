@@ -9,14 +9,16 @@ exports.handler = async function (event, context) {
 
 	console.log('Hola funcion nueva')
 	let { url } = bodyJson
-	url = url.replace('https://', '')
+	let lastIndex = url.lastIndexOf('/')
+	let fileId = url.substring(lastIndex + 1)
+	fileId = fileId.replace('.pdf', '')
 
 	const preference = {
 		binary_mode: true,
 		items: [
 			{
 				title: 'Tarjetas de negocio',
-				description: url,
+				description: fileId,
 				quantity: 1000,
 				currency_id: 'MXN',
 				unit_price: 1

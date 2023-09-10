@@ -8,21 +8,24 @@ exports.handler = async function (event, context) {
 	})
 
 	console.log('Hola funcion nueva')
-	const { url } = bodyJson
+	let { url } = bodyJson
+	let lastIndex = url.lastIndexOf('/')
+	let fileId = url.substring(lastIndex + 1)
+	fileId = fileId.replace('.pdf', '')
 
 	const preference = {
 		binary_mode: true,
 		items: [
 			{
 				title: 'Tarjetas de negocio',
-				description: url,
+				description: fileId,
 				quantity: 1000,
 				currency_id: 'MXN',
 				unit_price: 1
 			}
 		],
 		back_urls: {
-			success: 'https://www.waltergplata.com',
+			success: `${process.env.REACT_APP_BASE_URL}/payment-success/`,
 			failure: 'https://www.waltergplata.com',
 			pending: 'https://www.waltergplata.com'
 		},

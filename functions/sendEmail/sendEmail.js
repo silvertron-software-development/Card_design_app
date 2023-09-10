@@ -1,40 +1,38 @@
 const { POSTMARK_API_KEY } = process.env
 const serverToken = POSTMARK_API_KEY //API Key
-let postmark = require("postmark")
-let client = new postmark.ServerClient(serverToken);
+let postmark = require('postmark')
+let client = new postmark.ServerClient(serverToken)
 
 exports.handler = (event, context, callback) => {
-client.sendEmail(
-    {
-        From: "contacto@desarrolloplata.com",
-        To: "diegogplatac@desarrolloplata.com",
-        Subject: "test email",
-        HtmlBody: "test",
-        TextBody: "test"
-    }
-).then(response => {
-    console.log(response.To);
-    console.log(response.SubmittedAt);
-    console.log(response.Message);
-    console.log(response.MessageID);
-    console.log(response.ErrorCode);
-});
-callback(null, {
-    statusCode: 200,
-    body: 'I am on my way !'
-  })
+	client
+		.sendEmail({
+			From: 'contacto@desarrolloplata.com',
+			To: 'diegogplatac@desarrolloplata.com',
+			Subject: 'test email',
+			HtmlBody: 'test',
+			TextBody: 'test'
+		})
+		.then((response) => {
+			console.log(response)
+			console.log(response.To)
+			console.log(response.SubmittedAt)
+			console.log(response.Message)
+			console.log(response.MessageID)
+			console.log(response.ErrorCode)
+		})
+		.catch((err) => {
+			console.log(err)
+			return callback(null, {
+				statusCode: 400,
+				body: 'Error while sending email'
+			})
+		})
 
+	return callback(null, {
+		statusCode: 200,
+		body: 'I am on my way !'
+	})
 }
-
-
-
-
-
-
-
-
-
-
 
 // with thanks to https://github.com/Urigo/graphql-modules/blob/8cb2fd7d9938a856f83e4eee2081384533771904/website/lambda/contact.js
 // const process = require('process')
